@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Data and experiment artifacts
+data/
+artifacts/
+results/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
