@@ -36,12 +36,18 @@ The program search and the technical project will inform each other. Program pre
 - Established the project scope: hybrid quantum-classical machine learning for neuroimaging.
 - Defined the evaluation principle: quantum approaches must be assessed against matched classical baselines.
 - Created the public portfolio repository.
+- Selected ABIDE I with PCP C-PAC/CC200 ROI time-series derivatives as the primary dataset configuration.
+- Registered a cross-site evaluation protocol with classical feature, GNN, quantum-kernel, and variational-readout models.
+- Verified live access to the public metadata and a sample derivative file.
+- Added a reproducible manifest generator and leakage-resistant leave-one-site-out split utility.
+- Added automated tests for metadata parsing, URL safety, deterministic manifests, and site separation.
 
-### Next decisions
+### Next implementation tasks
 
-1. Choose the first public dataset or derived benchmark.
-2. Select the initial quantum software stack.
-3. Define a minimal classical baseline and evaluation protocol.
+1. Freeze subject inclusion, imaging quality, motion, and minimum site-size rules.
+2. Implement derivative download verification and checksum capture for a small smoke-test cohort.
+3. Construct functional-connectivity matrices without fitting any transform on held-out sites.
+4. Select the initial quantum software stack after the classical data contract is stable.
 
 ## Decision record
 
@@ -52,3 +58,7 @@ The project will connect quantum machine learning to neuroimaging and graph-lear
 ### 2026-08-01 - Tracking approach
 
 GitHub is the source of truth. The README exposes the public roadmap, GitHub Issues represent actionable work, and this log captures durable context. A separate Notion workspace is optional and will be added only if it becomes useful for personal reading notes.
+
+### 2026-08-01 - First dataset and evaluation design
+
+ABIDE I was selected because it is public, graph-native after functional-connectivity construction, and multi-site. The primary evaluation will hold out acquisition sites so that scanner/site signal cannot be mistaken for disease generalization. The first quantum models will operate on low-dimensional graph representations; raw fMRI and full 200-node graphs will not be loaded directly into a quantum circuit.

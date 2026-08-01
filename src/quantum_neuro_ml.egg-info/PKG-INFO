@@ -1,3 +1,14 @@
+Metadata-Version: 2.4
+Name: quantum-neuro-ml
+Version: 0.1.0
+Summary: Reproducible hybrid quantum-classical graph learning for neuroimaging
+Author: Mostafa Abdelmegeed
+License: Apache-2.0
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Requires-Dist: pytest<9,>=8; extra == "dev"
+
 # Quantum Neuro ML
 
 A long-term, reproducible portfolio project exploring hybrid quantum-classical machine learning for neuroimaging.
@@ -36,21 +47,3 @@ notebooks/   Exploratory and reproducible experiments
 src/         Reusable data, modeling, and evaluation code
 tests/       Automated checks as the codebase matures
 ```
-
-## Development quick start
-
-Requires Python 3.11 or newer.
-
-```bash
-python -m venv .venv
-.venv/Scripts/python -m pip install -e ".[dev]"
-.venv/Scripts/python -m pytest
-```
-
-Generate the local ABIDE derivative manifest without downloading the imaging data:
-
-```bash
-.venv/Scripts/qneuro-abide-manifest --output data/manifests/abide-cpac-filt-noglobal-cc200.csv
-```
-
-Generated subject manifests and downloaded data remain untracked. Verified cohort counts and the source-metadata fingerprint are recorded in [the ABIDE data card](docs/data-card.md).

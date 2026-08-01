@@ -1,0 +1,2 @@
+[console_scripts]
+qneuro-abide-manifest = quantum_neuro_ml.data.abide:main
