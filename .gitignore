@@ -8,9 +8,12 @@ venv/
 .ipynb_checkpoints/
 
 # Data and experiment artifacts
-data/
-artifacts/
-results/
+/data/
+/artifacts/
+/results/
+
+# Python packaging artifacts
+*.egg-info/
 
 # Editors and operating systems
 .vscode/
