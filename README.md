@@ -22,9 +22,11 @@ This is an evidence-first project. Every quantum result will be compared against
 
 Progress and decisions are maintained in [the project log](docs/project-log.md). GitHub Issues will track discrete tasks; this document records decisions and research notes that need context.
 
+The current experimental design is defined in the [Milestone 0 research protocol](docs/research-protocol.md). It must be frozen before full model implementation so that dataset and evaluation choices are not changed after seeing results.
+
 ## Initial research direction
 
-Start with a small, public neuroimaging-derived classification dataset or a carefully prepared connectivity-feature benchmark. The first decision will optimize for reproducibility and ethical data access, not for benchmark size.
+Start with the public, multi-site ABIDE I resting-state fMRI dataset and PCP ROI time-series derivatives. The initial task is cross-site autism-versus-control classification from functional-connectivity graphs, with classical and hybrid quantum-classical models evaluated under identical leakage-resistant splits.
 
 ## Repository structure
 
@@ -34,4 +36,3 @@ notebooks/   Exploratory and reproducible experiments
 src/         Reusable data, modeling, and evaluation code
 tests/       Automated checks as the codebase matures
 ```
-
