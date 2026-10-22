@@ -1,0 +1,15 @@
+{
+  "version": "abide-cpac-cc200-v1",
+  "metadata_sha256": "009f01a89697113e5375ded4fbcff4c85e89a4daa6d13e63c21ae5d57dda0865",
+  "max_mean_fd": 0.2,
+  "min_timepoints": 100,
+  "min_site_subjects": 20,
+  "min_site_per_diagnosis": 10,
+  "required_qc": [
+    "qc_rater_1",
+    "qc_anat_rater_2",
+    "qc_func_rater_2",
+    "qc_anat_rater_3",
+    "qc_func_rater_3"
+  ]
+}

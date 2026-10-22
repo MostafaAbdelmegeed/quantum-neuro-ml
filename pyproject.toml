@@ -12,15 +12,31 @@ license = { text = "Apache-2.0" }
 authors = [
   { name = "Mostafa Abdelmegeed" },
 ]
-dependencies = []
+dependencies = [
+  "numpy>=2,<3",
+  "scikit-learn>=1.5,<2",
+  "threadpoolctl>=3,<4",
+  "joblib>=1.4,<2",
+]
 
 [project.optional-dependencies]
 dev = [
   "pytest>=8,<9",
 ]
+graph = [
+  "torch>=2.5,<3",
+]
+quantum = [
+  "pennylane>=0.43,<0.46",
+]
 
 [project.scripts]
 qneuro-abide-manifest = "quantum_neuro_ml.data.abide:main"
+qneuro-abide-smoke = "quantum_neuro_ml.data.smoke:main"
+qneuro-abide-cohort = "quantum_neuro_ml.data.cohort:main"
+qneuro-abide-build = "quantum_neuro_ml.data.dataset:main"
+qneuro-abide-baseline = "quantum_neuro_ml.baselines:main"
+qneuro-followup = "quantum_neuro_ml.experiments:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

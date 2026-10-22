@@ -1,6 +1,8 @@
 # Milestone 0 research protocol
 
-Status: working protocol to be frozen before model implementation
+Status: cohort v1 and the first classical evaluation frozen on 2026-10-22, before model training. The graph and quantum extensions remain planned experiments.
+
+The executable inclusion rules and exact first-run evaluation are specified in [cohort policy v1](cohort-policy.md). It takes precedence over the initial alternatives below for this reference run. Dataset access and citation requirements are recorded in [data use](data-use.md); commands and outputs are described in [classical baselines](classical-baselines.md).
 
 ## Working title
 
@@ -90,7 +92,7 @@ Simulator experiments come first. A small run on real quantum hardware is option
 
 ### Primary evaluation
 
-Leave-one-site-out or grouped cross-site evaluation, subject to a minimum usable sample count per held-out site. This measures generalization to an unseen acquisition site.
+Leave-one-acquisition-group-out evaluation. Merge the paired Leuven, UCLA, and Michigan samples before splitting; require at least 20 usable participants and 10 per diagnosis in each group. Tune the first classical models with three inner grouped folds. This measures generalization to an unseen acquisition group.
 
 ### Secondary evaluation
 

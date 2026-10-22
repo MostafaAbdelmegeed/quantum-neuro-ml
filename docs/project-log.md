@@ -29,7 +29,9 @@ The program search and the technical project will inform each other. Program pre
 
 ## Current focus
 
-**Milestone 0 - Foundations**
+**Milestone 1 - Classical baselines**
+
+Milestone 0 is complete. The first classical feature reference run is complete; graph encoders, nuisance controls, and the shared dimensional bottleneck remain next.
 
 ### Completed
 
@@ -41,13 +43,22 @@ The program search and the technical project will inform each other. Program pre
 - Verified live access to the public metadata and a sample derivative file.
 - Added a reproducible manifest generator and leakage-resistant leave-one-site-out split utility.
 - Added automated tests for metadata parsing, URL safety, deterministic manifests, and site separation.
+- Added a small download-to-connectivity workflow with checksum verification and an offline mode.
+- Added participant-ID checks to catch site leakage even when file identifiers differ.
+- Froze cohort policy v1 and the first classical evaluation before training.
+- Documented dataset use terms and citation requirements.
+- Audited the cohort and validated 432 participants across seven acquisition groups.
+- Verified an identical offline rebuild of arrays, manifests, and exclusions.
+- Ran logistic regression, RBF SVM, and a dummy control using nested acquisition-group folds.
+- Verified all held-out predictions and metrics independently; all 38 automated tests pass.
+- Selected PennyLane with a local simulator for the planned quantum experiments; the dependency is not installed yet.
 
 ### Next implementation tasks
 
-1. Freeze subject inclusion, imaging quality, motion, and minimum site-size rules.
-2. Implement derivative download verification and checksum capture for a small smoke-test cohort.
-3. Construct functional-connectivity matrices without fitting any transform on held-out sites.
-4. Select the initial quantum software stack after the classical data contract is stable.
+1. Specify demographic/motion-only controls and a nuisance-adjusted connectivity sensitivity experiment, fitting every adjustment inside training folds.
+2. Specify a wider SVM grid as a separate experiment because v1 selects the upper C boundary in six folds.
+3. Implement the classical graph encoder and shared 4-8 dimensional bottleneck with matched classical readouts.
+4. Add and validate the optional PennyLane environment, then freeze and run the first quantum-kernel comparison on the same representations and splits.
 
 ## Decision record
 
@@ -62,3 +73,21 @@ GitHub is the source of truth. The README exposes the public roadmap, GitHub Iss
 ### 2026-08-01 - First dataset and evaluation design
 
 ABIDE I was selected because it is public, graph-native after functional-connectivity construction, and multi-site. The primary evaluation will hold out acquisition sites so that scanner/site signal cannot be mistaken for disease generalization. The first quantum models will operate on low-dimensional graph representations; raw fMRI and full 200-node graphs will not be loaded directly into a quantum circuit.
+
+### 2026-10-22 - Connectivity smoke test
+
+Resumed development and added a reproducible download-to-connectivity command. The default integration cohort contains eight participants from NYU and PITT, balanced within site and diagnosis, with PITT held out. The command checks download lengths and local SHA-256 receipts, validates ROI order and signals, and writes Pearson matrices, Fisher-z matrices, and aligned edge features. A cached offline run also completed.
+
+The full manifest still contains 1,035 participants across 20 sites and reproduces the original fingerprint. All 28 automated tests pass. The tests cover numerical edge cases, deterministic cohort selection, damaged caches, truncated downloads, offline reconstruction, and participant separation across sites.
+
+The environment uses Python 3.11 and locked dependencies. Full research inclusion rules remain open; the next step is a cohort quality audit and a written exclusion policy before training classical baselines.
+
+### 2026-10-22 - Cohort freeze and first classical reference
+
+Froze [cohort policy v1](cohort-policy.md) using the PCP motion cutoff, explicit OK ratings from all five manual QC fields, complete age/sex/motion metadata, a 100-timepoint minimum, and minimum acquisition-group counts. Leuven, UCLA, and Michigan's paired samples stay together in every split. [Dataset use and citations](data-use.md) are documented.
+
+Metadata screening retained 434 participants. Two NYU control scans had constant ROI signals, leaving 432 participants across seven acquisition groups. A second build using only cached files reproduced every array, the manifest, and all exclusion decisions. The [cohort audit](cohort-audit.md) records attrition and demographic differences.
+
+The first nested evaluation produced mean balanced accuracy of 69.06% for logistic regression and 69.05% for RBF SVM, with mean AUROC 0.781 and 0.780. The dummy control scored 50% and 0.5 per site. [Full results](classical-results.md) include site variation, descriptive intervals, calibration, and tuning limitations. Motion and sex differences persist after QC; the next controls must assess them before interpreting these scores as disease-related connectivity effects.
+
+All 38 automated tests pass. A separate prediction audit reproduced each site's metrics from saved predictions and confirmed participant and group separation. The [quantum software decision](quantum-stack.md) selects PennyLane for the next stage; no quantum model has been trained.

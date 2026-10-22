@@ -1,0 +1,13 @@
+# Variational readout v3
+
+Specified on 2026-10-22 before fitting these readouts to ABIDE. This extends the exploratory [v2 comparisons](follow-up-protocol.md). It is a PCA experiment; the graph encoder remains separate work. Both raw and nuisance-residual connectivity use the same training-only four-component input pipeline as v2, including the eight-component PCA fit and bounded angle mapping.
+
+The executable settings are [variational-v3.json](../config/variational-v3.json). Compare a four-qubit variational readout with a three-hidden-unit tanh MLP. The circuit has 21 trainable parameters: 16 rotation angles and five linear-readout coefficients. The MLP has 19. This matches their approximate parameter counts, not their expressiveness or computation cost.
+
+Encode each input once with RY gates. Each of two trainable layers applies RZ then RY on every wire, followed by the directed CNOT ring 0→1→2→3→0. Putting a mixing rotation after each phase rotation lets every trainable angle affect the measured observables. Measure the four Pauli-Z expectations and train a linear logit. Use PennyLane's exact `default.qubit` simulator with float64 PyTorch backpropagation. The [PyTorch interface documentation](https://docs.pennylane.ai/en/stable/introduction/interfaces/torch.html) describes this differentiable execution path. There are no shots or hardware measurements.
+
+Both families use Adam, class-balanced binary cross-entropy, 60 fixed epochs, batch size 32, weight decay 0.0001, and the same participant order for a given seed. Select learning rate from 0.001 and 0.01 using the three inner acquisition-group folds. Use no test-dependent early stopping. Initialise quantum rotation angles from a zero-mean normal with standard deviation 0.1 and linear/MLP weights with PyTorch defaults. Fit seeds 42, 137, and 2026 as separate settings and report all of them. No seed is chosen using outer scores.
+
+Report mean site balanced accuracy, AUROC, training losses, parameter counts, and runtime. Compare paired predictions and verify identical transformed inputs and training participants for each family and seed. The learned sigmoid outputs come from a class-weighted loss and are not calibrated risk estimates. Seed repetitions share the same participants and are not independent validation cohorts.
+
+Before the cohort run, compare autograd against central finite differences for circuit parameters and input angles, test batched predictions against individual execution, and test repeatability and learning on a synthetic classification problem. Full-cohort scores do not change the circuit or search space.
