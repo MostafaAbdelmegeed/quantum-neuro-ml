@@ -54,19 +54,28 @@ foreach ($experimentSeed in @(137, 2026)) {
 }
 ```
 
+## Higher-order edge co-variation
+
+The [co-variation protocol](covariation-protocol.md) learns edge groups from training participants inside each nested split. Run the model comparison and its outer-fold module-stability diagnostic after the verified cohort and prior result series are available:
+
+```powershell
+uv run --locked --extra dev --extra graph --extra quantum python scripts/covariation_experiment.py --output-dir results/covariation-v1
+uv run --locked --extra dev --extra graph --extra quantum python scripts/covariation_stability.py --output-dir results/covariation-stability-v1
+```
+
 ## Audit and figures
 
 Audit all completed predictions, grouped partitions, primary metrics, bootstrap summaries, source receipts, and null-statistic arithmetic. The auditor recomputes the observed permutation predictions against the original reference. It reconstructs every shuffled target and checks the null summaries; it does not fit the 99 null classifiers a second time.
 
 ```powershell
-$resultNames = @("classical-v1-verified", "controls-v2", "bottleneck-v2-full", "bottleneck-v2-quarter", "bottleneck-v2-half", "variational-v3", "graph-v4-bounded", "graph-variational-v6")
+$resultNames = @("classical-v1-verified", "controls-v2", "bottleneck-v2-full", "bottleneck-v2-quarter", "bottleneck-v2-half", "variational-v3", "graph-v4-bounded", "graph-variational-v6", "covariation-v1")
 foreach ($experimentSeed in @(137, 2026)) {
     foreach ($setting in @("quarter", "half", "full")) {
         $resultNames += "sensitivity-pca$experimentSeed-$setting"
     }
     $resultNames += "sensitivity-graph$experimentSeed"
 }
-$auditArguments = @("python", "scripts/audit_results.py", "--permutation-dir", "results/permutation-v2", "--output-dir", "results/audit-final-v1")
+$auditArguments = @("python", "scripts/audit_results.py", "--permutation-dir", "results/permutation-v2", "--output-dir", "results/audit-final-v4")
 foreach ($name in $resultNames) { $auditArguments += @("--result-dir", "results/$name") }
 uv run --locked --extra dev --extra graph --extra quantum @auditArguments
 if ($LASTEXITCODE -ne 0) { throw "Artifact audit failed" }
@@ -75,7 +84,7 @@ if ($LASTEXITCODE -ne 0) { throw "Artifact audit failed" }
 Export the public aggregate JSON and PNG/SVG figures in a separate plotting environment:
 
 ```bash
-uv run --no-project --python 3.11 --with matplotlib==3.11.2 --with numpy==2.4.6 python scripts/plot_results.py --audit results/audit-final-v1/report.json
+uv run --no-project --python 3.11 --with matplotlib==3.11.2 --with numpy==2.4.6 python scripts/plot_results.py --audit results/audit-final-v4/report.json
 ```
 
-The plotting command checks that every report it exports appears in the passed audit. It writes aggregate scores and model settings to `docs/results/aggregate.json` and figures to `docs/figures/`. It exports no participant rows. Three-seed intervals average seeds within site before site resampling; seed ranges are labelled separately from confidence intervals.
+The plotting command checks that every model report it exports appears in the passed audit. It writes aggregate scores and model settings to `docs/results/aggregate.json` and figures to `docs/figures/`. The module-stability summary is recorded separately in `docs/results/covariation-stability.json`. It exports no participant rows. Three-seed intervals average seeds within site before site resampling; seed ranges are labelled separately from confidence intervals.

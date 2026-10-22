@@ -1,0 +1,1181 @@
+{
+  "acquisition_groups": 7,
+  "audit": "passed",
+  "experiment_sha256": "2fe3c08b8ab923eb56d77066c40a558980b4b280e5ad76dbe670939bef23dcd3",
+  "experiments": [
+    {
+      "directory": "results\\classical-v1-verified",
+      "folds": 21,
+      "matched_readout_fold_pairs": 0,
+      "models": 3,
+      "predictions": 1296,
+      "report_sha256": "71efe3b5c52216e0292c28122834ea25b0ccc315dd5a6575d45ddb7ff54fa582",
+      "verified_site_means": {
+        "dummy": {
+          "auroc": 0.5,
+          "balanced_accuracy": 0.5,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "logistic": {
+          "auroc": 0.7809887714135344,
+          "balanced_accuracy": 0.6905636320458193,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "rbf_svm": {
+          "auroc": 0.7797077179186089,
+          "balanced_accuracy": 0.6904836325255269,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\controls-v2",
+      "folds": 42,
+      "matched_readout_fold_pairs": 0,
+      "models": 6,
+      "predictions": 2592,
+      "report_sha256": "dcad541f5daadc380fcd5034cc05e78d91cc880c4b05bb5e7c91f80a094e164c",
+      "verified_site_means": {
+        "covariates_logistic": {
+          "auroc": 0.624497380789907,
+          "balanced_accuracy": 0.5631344501888746,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "covariates_rbf_expanded": {
+          "auroc": 0.6235632904211307,
+          "balanced_accuracy": 0.5735352820100392,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_logistic": {
+          "auroc": 0.7809887714135344,
+          "balanced_accuracy": 0.6905636320458193,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_rbf_expanded": {
+          "auroc": 0.7776747508856419,
+          "balanced_accuracy": 0.6860880281299225,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_logistic": {
+          "auroc": 0.7132255938159514,
+          "balanced_accuracy": 0.6450360009969202,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_rbf_expanded": {
+          "auroc": 0.697521369615582,
+          "balanced_accuracy": 0.6434154582459748,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\bottleneck-v2-full",
+      "folds": 168,
+      "matched_readout_fold_pairs": 126,
+      "models": 24,
+      "predictions": 10368,
+      "report_sha256": "0ded1c5eee280999ce52cdcec4a42d3e6d1b5d80bd4cc6b19612375fb72481f1",
+      "verified_site_means": {
+        "raw_pca4_logistic": {
+          "auroc": 0.6602360529416552,
+          "balanced_accuracy": 0.5967064918548235,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_polynomial": {
+          "auroc": 0.6121797467162731,
+          "balanced_accuracy": 0.5508249103069179,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_quantum": {
+          "auroc": 0.7036498632761644,
+          "balanced_accuracy": 0.6452143946127717,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_rbf": {
+          "auroc": 0.6242361301943085,
+          "balanced_accuracy": 0.587894289939403,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca6_logistic": {
+          "auroc": 0.6715550690099049,
+          "balanced_accuracy": 0.6454772447971643,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca6_polynomial": {
+          "auroc": 0.6389077383427663,
+          "balanced_accuracy": 0.600171048838135,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca6_quantum": {
+          "auroc": 0.6457593580924827,
+          "balanced_accuracy": 0.5957683187123503,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca6_rbf": {
+          "auroc": 0.6274249476437123,
+          "balanced_accuracy": 0.5924289742613151,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca8_logistic": {
+          "auroc": 0.6777637086797516,
+          "balanced_accuracy": 0.6130502464669,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca8_polynomial": {
+          "auroc": 0.6438370891252744,
+          "balanced_accuracy": 0.6176812333208747,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca8_quantum": {
+          "auroc": 0.6242144554927774,
+          "balanced_accuracy": 0.5760535252054159,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca8_rbf": {
+          "auroc": 0.6596991000010226,
+          "balanced_accuracy": 0.6171721944820993,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_logistic": {
+          "auroc": 0.6406765848249799,
+          "balanced_accuracy": 0.6021192112023758,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_polynomial": {
+          "auroc": 0.6314475859476326,
+          "balanced_accuracy": 0.5858200070418887,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_quantum": {
+          "auroc": 0.6517463729306704,
+          "balanced_accuracy": 0.606747255950208,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_rbf": {
+          "auroc": 0.6436704575817641,
+          "balanced_accuracy": 0.5831112320546437,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca6_logistic": {
+          "auroc": 0.650492706610726,
+          "balanced_accuracy": 0.60900660881577,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca6_polynomial": {
+          "auroc": 0.6156320091931134,
+          "balanced_accuracy": 0.5776217035666978,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca6_quantum": {
+          "auroc": 0.6395451370297766,
+          "balanced_accuracy": 0.5860523307874631,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca6_rbf": {
+          "auroc": 0.6424712784592007,
+          "balanced_accuracy": 0.5946464076812423,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca8_logistic": {
+          "auroc": 0.6429360726580212,
+          "balanced_accuracy": 0.592002936197277,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca8_polynomial": {
+          "auroc": 0.6422124976581249,
+          "balanced_accuracy": 0.5847402609467224,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca8_quantum": {
+          "auroc": 0.6391212888844121,
+          "balanced_accuracy": 0.5703985570271627,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca8_rbf": {
+          "auroc": 0.657833917873638,
+          "balanced_accuracy": 0.5924738031572652,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\bottleneck-v2-quarter",
+      "folds": 56,
+      "matched_readout_fold_pairs": 42,
+      "models": 8,
+      "predictions": 3456,
+      "report_sha256": "b863ca40a715183fbeb528364a8198af4da359bacfdb4851a81ffe21a4b87843",
+      "verified_site_means": {
+        "raw_pca4_logistic": {
+          "auroc": 0.6203192664315813,
+          "balanced_accuracy": 0.5800157730529226,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_polynomial": {
+          "auroc": 0.6387953976242733,
+          "balanced_accuracy": 0.5883492845270252,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_quantum": {
+          "auroc": 0.5660792390500726,
+          "balanced_accuracy": 0.5708663180551221,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_rbf": {
+          "auroc": 0.6042202816701403,
+          "balanced_accuracy": 0.581403068052462,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_logistic": {
+          "auroc": 0.6488529382657777,
+          "balanced_accuracy": 0.6206248012219406,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_polynomial": {
+          "auroc": 0.6264130248887945,
+          "balanced_accuracy": 0.5717433516850932,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_quantum": {
+          "auroc": 0.6037942046974544,
+          "balanced_accuracy": 0.5489983478557028,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_rbf": {
+          "auroc": 0.6584098969834198,
+          "balanced_accuracy": 0.5676766920235737,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\bottleneck-v2-half",
+      "folds": 56,
+      "matched_readout_fold_pairs": 42,
+      "models": 8,
+      "predictions": 3456,
+      "report_sha256": "5e930a83540c4bf3382f950b46a5a93dc0c10e7bf51dcc24fe0414a81b551bc8",
+      "verified_site_means": {
+        "raw_pca4_logistic": {
+          "auroc": 0.62079994987246,
+          "balanced_accuracy": 0.5634140205048296,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_polynomial": {
+          "auroc": 0.6282028381220356,
+          "balanced_accuracy": 0.5545283113160091,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_quantum": {
+          "auroc": 0.6276818106480687,
+          "balanced_accuracy": 0.5618682252528634,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_rbf": {
+          "auroc": 0.6397315550820722,
+          "balanced_accuracy": 0.5696365088400687,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_logistic": {
+          "auroc": 0.6348205658810133,
+          "balanced_accuracy": 0.6112222118194109,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_polynomial": {
+          "auroc": 0.6236420277265928,
+          "balanced_accuracy": 0.5913005676034119,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_quantum": {
+          "auroc": 0.596015132290914,
+          "balanced_accuracy": 0.5807346485462354,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_rbf": {
+          "auroc": 0.6358150091892802,
+          "balanced_accuracy": 0.595673586393748,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\variational-v3",
+      "folds": 84,
+      "matched_readout_fold_pairs": 42,
+      "models": 12,
+      "predictions": 5184,
+      "report_sha256": "55e3038845473b97d761041d547e81adc6cb657400358353e349ab59adc800e1",
+      "verified_site_means": {
+        "raw_pca4_seed137_mlp": {
+          "auroc": 0.6476797213312135,
+          "balanced_accuracy": 0.5818259972519082,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_seed137_quantum": {
+          "auroc": 0.5374880678887155,
+          "balanced_accuracy": 0.5408071096203698,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_seed2026_mlp": {
+          "auroc": 0.6504798280271958,
+          "balanced_accuracy": 0.5783403735320862,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_seed2026_quantum": {
+          "auroc": 0.5863481069728004,
+          "balanced_accuracy": 0.5828890485150798,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_seed42_mlp": {
+          "auroc": 0.6437860320920279,
+          "balanced_accuracy": 0.6031983164082902,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_seed42_quantum": {
+          "auroc": 0.5916385827743887,
+          "balanced_accuracy": 0.5714389505141961,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_seed137_mlp": {
+          "auroc": 0.6405483167112885,
+          "balanced_accuracy": 0.6058454746208491,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_seed137_quantum": {
+          "auroc": 0.5720741510713568,
+          "balanced_accuracy": 0.5398570102416786,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_seed2026_mlp": {
+          "auroc": 0.6304841765904993,
+          "balanced_accuracy": 0.5967771706961711,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_seed2026_quantum": {
+          "auroc": 0.6130665151428323,
+          "balanced_accuracy": 0.595274901735484,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_seed42_mlp": {
+          "auroc": 0.6332948619255551,
+          "balanced_accuracy": 0.5963514855337687,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_seed42_quantum": {
+          "auroc": 0.6091856119175985,
+          "balanced_accuracy": 0.5473740112630614,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\graph-v4-bounded",
+      "folds": 56,
+      "matched_readout_fold_pairs": 42,
+      "models": 8,
+      "predictions": 3456,
+      "report_sha256": "602fb8d5df528edb122256387dbc1fe68413d7050ab7ddf32595feaf060e898b",
+      "verified_site_means": {
+        "raw_graph4_logistic": {
+          "auroc": 0.6507240387027045,
+          "balanced_accuracy": 0.6041149223400885,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_polynomial": {
+          "auroc": 0.6523325108756927,
+          "balanced_accuracy": 0.6211792784327022,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_quantum": {
+          "auroc": 0.6229492643199769,
+          "balanced_accuracy": 0.6074116256367917,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_rbf": {
+          "auroc": 0.6490006941644758,
+          "balanced_accuracy": 0.5957670840536702,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_logistic": {
+          "auroc": 0.6559718304251932,
+          "balanced_accuracy": 0.597112527702679,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_polynomial": {
+          "auroc": 0.6435295091456755,
+          "balanced_accuracy": 0.6029752582194191,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_quantum": {
+          "auroc": 0.5748973355063643,
+          "balanced_accuracy": 0.5972435732019469,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_rbf": {
+          "auroc": 0.6224042611462879,
+          "balanced_accuracy": 0.6147207665013187,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\sensitivity-pca137-quarter",
+      "folds": 56,
+      "matched_readout_fold_pairs": 42,
+      "models": 8,
+      "predictions": 3456,
+      "report_sha256": "0acdb443c839a679e340e5bd0e38004cf5f7e21bd5a9264458eb2b7c0aa14046",
+      "verified_site_means": {
+        "raw_pca4_logistic": {
+          "auroc": 0.541959768871577,
+          "balanced_accuracy": 0.5238256038471057,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_polynomial": {
+          "auroc": 0.5047135998047259,
+          "balanced_accuracy": 0.4835529803551131,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_quantum": {
+          "auroc": 0.4998207011367783,
+          "balanced_accuracy": 0.5234517336910177,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_rbf": {
+          "auroc": 0.5926374606147858,
+          "balanced_accuracy": 0.5599567942825784,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_logistic": {
+          "auroc": 0.6253625322715125,
+          "balanced_accuracy": 0.5932880504667073,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_polynomial": {
+          "auroc": 0.5882645793865013,
+          "balanced_accuracy": 0.5586103118104451,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_quantum": {
+          "auroc": 0.5311974379158345,
+          "balanced_accuracy": 0.5009269758220986,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_rbf": {
+          "auroc": 0.5868655977162799,
+          "balanced_accuracy": 0.5495644608795474,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\sensitivity-pca137-half",
+      "folds": 56,
+      "matched_readout_fold_pairs": 42,
+      "models": 8,
+      "predictions": 3456,
+      "report_sha256": "1b2e921eda48d272e8b9c57c50505aaf4212f5ba83fd33e98bd4b4a202ac9ad4",
+      "verified_site_means": {
+        "raw_pca4_logistic": {
+          "auroc": 0.630156309021556,
+          "balanced_accuracy": 0.5782576259021418,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_polynomial": {
+          "auroc": 0.6417754545504286,
+          "balanced_accuracy": 0.5991472546014277,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_quantum": {
+          "auroc": 0.5555500394677236,
+          "balanced_accuracy": 0.5391476894855927,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_rbf": {
+          "auroc": 0.5838040140507259,
+          "balanced_accuracy": 0.5784860214548766,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_logistic": {
+          "auroc": 0.6234591129039815,
+          "balanced_accuracy": 0.5957033848114032,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_polynomial": {
+          "auroc": 0.6217276017646244,
+          "balanced_accuracy": 0.5956037710182052,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_quantum": {
+          "auroc": 0.5475584878096125,
+          "balanced_accuracy": 0.5345211699686888,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_rbf": {
+          "auroc": 0.6028030402728405,
+          "balanced_accuracy": 0.6024519072808472,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\sensitivity-pca137-full",
+      "folds": 56,
+      "matched_readout_fold_pairs": 42,
+      "models": 8,
+      "predictions": 3456,
+      "report_sha256": "bf9dbea3a193ffbb63b4aa95b63256a8796efa3dbbb945edd74b967db5706da3",
+      "verified_site_means": {
+        "raw_pca4_logistic": {
+          "auroc": 0.6592775553987175,
+          "balanced_accuracy": 0.5958136347119664,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_polynomial": {
+          "auroc": 0.6238378174347229,
+          "balanced_accuracy": 0.574748229634649,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_quantum": {
+          "auroc": 0.703039772694287,
+          "balanced_accuracy": 0.6463132957116728,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_rbf": {
+          "auroc": 0.6238545218696187,
+          "balanced_accuracy": 0.5909998800015147,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_logistic": {
+          "auroc": 0.6407081930017494,
+          "balanced_accuracy": 0.6021192112023758,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_polynomial": {
+          "auroc": 0.6316623443075523,
+          "balanced_accuracy": 0.5853392378111195,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_quantum": {
+          "auroc": 0.6477712532395576,
+          "balanced_accuracy": 0.6029878574539673,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_rbf": {
+          "auroc": 0.6398260761567377,
+          "balanced_accuracy": 0.590411552117937,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\sensitivity-pca2026-quarter",
+      "folds": 56,
+      "matched_readout_fold_pairs": 42,
+      "models": 8,
+      "predictions": 3456,
+      "report_sha256": "435fd255527369cd0dc5a523eae87175c5469199919b21be51f2a621b00dd52f",
+      "verified_site_means": {
+        "raw_pca4_logistic": {
+          "auroc": 0.6279739143302272,
+          "balanced_accuracy": 0.5868217506423844,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_polynomial": {
+          "auroc": 0.6039950837243324,
+          "balanced_accuracy": 0.5830106803880708,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_quantum": {
+          "auroc": 0.5776516891912149,
+          "balanced_accuracy": 0.5239119053456339,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_rbf": {
+          "auroc": 0.6083007966176857,
+          "balanced_accuracy": 0.5685139482214291,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_logistic": {
+          "auroc": 0.6196804176468982,
+          "balanced_accuracy": 0.588919252181115,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_polynomial": {
+          "auroc": 0.5833657856905787,
+          "balanced_accuracy": 0.563856665771907,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_quantum": {
+          "auroc": 0.5351187895336318,
+          "balanced_accuracy": 0.5341147624309134,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_rbf": {
+          "auroc": 0.5997574390551401,
+          "balanced_accuracy": 0.5881063648352856,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\sensitivity-pca2026-half",
+      "folds": 56,
+      "matched_readout_fold_pairs": 42,
+      "models": 8,
+      "predictions": 3456,
+      "report_sha256": "b7c3c51adea15948c5378a650faad5d1acd2df2f891dbf21ee851c6bd8fde3e8",
+      "verified_site_means": {
+        "raw_pca4_logistic": {
+          "auroc": 0.6562780409476281,
+          "balanced_accuracy": 0.6131160549177453,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_polynomial": {
+          "auroc": 0.6439658701094215,
+          "balanced_accuracy": 0.6037531054151024,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_quantum": {
+          "auroc": 0.6432214779092643,
+          "balanced_accuracy": 0.5914039784193911,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_rbf": {
+          "auroc": 0.5786870872213948,
+          "balanced_accuracy": 0.5689102034253067,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_logistic": {
+          "auroc": 0.6427099688186851,
+          "balanced_accuracy": 0.5882751289584093,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_polynomial": {
+          "auroc": 0.6199202187220317,
+          "balanced_accuracy": 0.5764217502276505,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_quantum": {
+          "auroc": 0.6010901761974443,
+          "balanced_accuracy": 0.5606937569788039,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_rbf": {
+          "auroc": 0.6639002263692015,
+          "balanced_accuracy": 0.5834093093773445,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\sensitivity-pca2026-full",
+      "folds": 56,
+      "matched_readout_fold_pairs": 42,
+      "models": 8,
+      "predictions": 3456,
+      "report_sha256": "053d0b89c9020e49746b1578589b0a28b0f2eaacd2ea8235bb13e68e207a7f2f",
+      "verified_site_means": {
+        "raw_pca4_logistic": {
+          "auroc": 0.6600147851868062,
+          "balanced_accuracy": 0.5967064918548235,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_polynomial": {
+          "auroc": 0.6140938508717134,
+          "balanced_accuracy": 0.5722534817354894,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_quantum": {
+          "auroc": 0.7034378266527125,
+          "balanced_accuracy": 0.6463132957116728,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_pca4_rbf": {
+          "auroc": 0.6240630237308794,
+          "balanced_accuracy": 0.587894289939403,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_logistic": {
+          "auroc": 0.6407590024073976,
+          "balanced_accuracy": 0.602806024389189,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_polynomial": {
+          "auroc": 0.6322750112105419,
+          "balanced_accuracy": 0.5933388040343699,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_quantum": {
+          "auroc": 0.6482163188651059,
+          "balanced_accuracy": 0.6052388322855873,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_pca4_rbf": {
+          "auroc": 0.6175938059468383,
+          "balanced_accuracy": 0.5713838037188063,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\sensitivity-graph137",
+      "folds": 56,
+      "matched_readout_fold_pairs": 42,
+      "models": 8,
+      "predictions": 3456,
+      "report_sha256": "17f95239197526ff0ef58ff190625654e82d6628efe7ae824abb2ba57becf454",
+      "verified_site_means": {
+        "raw_graph4_logistic": {
+          "auroc": 0.670626533452045,
+          "balanced_accuracy": 0.6175314096273505,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_polynomial": {
+          "auroc": 0.6702658164667825,
+          "balanced_accuracy": 0.6079111944844373,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_quantum": {
+          "auroc": 0.6312904301609691,
+          "balanced_accuracy": 0.6005974491482462,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_rbf": {
+          "auroc": 0.6614003589806894,
+          "balanced_accuracy": 0.6053567314036583,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_logistic": {
+          "auroc": 0.6707116239015097,
+          "balanced_accuracy": 0.6153830934341814,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_polynomial": {
+          "auroc": 0.6730800682953537,
+          "balanced_accuracy": 0.6223141438863988,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_quantum": {
+          "auroc": 0.6535138829793604,
+          "balanced_accuracy": 0.6315360076891282,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_rbf": {
+          "auroc": 0.6424867573611542,
+          "balanced_accuracy": 0.6141926172437052,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\sensitivity-graph2026",
+      "folds": 56,
+      "matched_readout_fold_pairs": 42,
+      "models": 8,
+      "predictions": 3456,
+      "report_sha256": "7ed409b02aa230cb7e824c3460db6e93119cf6ea26ae338b250f0aa9a81a5947",
+      "verified_site_means": {
+        "raw_graph4_logistic": {
+          "auroc": 0.6793901153138601,
+          "balanced_accuracy": 0.6096533508171341,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_polynomial": {
+          "auroc": 0.6697861633793888,
+          "balanced_accuracy": 0.609728042448305,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_quantum": {
+          "auroc": 0.6466749450034115,
+          "balanced_accuracy": 0.6121184086046477,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_rbf": {
+          "auroc": 0.680936391784485,
+          "balanced_accuracy": 0.6216703466255137,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_logistic": {
+          "auroc": 0.7072206730867646,
+          "balanced_accuracy": 0.6477780879600904,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_polynomial": {
+          "auroc": 0.6894590781784603,
+          "balanced_accuracy": 0.6300743617327574,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_quantum": {
+          "auroc": 0.6102575537372366,
+          "balanced_accuracy": 0.641450912000814,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_rbf": {
+          "auroc": 0.6640501060995287,
+          "balanced_accuracy": 0.6197951748071511,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\graph-variational-v6",
+      "folds": 84,
+      "matched_readout_fold_pairs": 42,
+      "models": 12,
+      "predictions": 5184,
+      "report_sha256": "67e0451336c2858447a1e31271331fbd53a310804d2fbf203c9da9a43ac867de",
+      "verified_site_means": {
+        "raw_graph4_seed137_mlp": {
+          "auroc": 0.6536886210810164,
+          "balanced_accuracy": 0.6153065888329882,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_seed137_quantum": {
+          "auroc": 0.6247867082396324,
+          "balanced_accuracy": 0.5860369132605714,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_seed2026_mlp": {
+          "auroc": 0.6510703234226785,
+          "balanced_accuracy": 0.6030691938750051,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_seed2026_quantum": {
+          "auroc": 0.6556852842181101,
+          "balanced_accuracy": 0.6012009385807688,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_seed42_mlp": {
+          "auroc": 0.6521731822885702,
+          "balanced_accuracy": 0.6030691938750051,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_graph4_seed42_quantum": {
+          "auroc": 0.6358995717177798,
+          "balanced_accuracy": 0.5958447772375128,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_seed137_mlp": {
+          "auroc": 0.6565093399762026,
+          "balanced_accuracy": 0.6022070655178051,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_seed137_quantum": {
+          "auroc": 0.616516126900931,
+          "balanced_accuracy": 0.59119996106312,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_seed2026_mlp": {
+          "auroc": 0.6553839143132084,
+          "balanced_accuracy": 0.6060377106790955,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_seed2026_quantum": {
+          "auroc": 0.6223371434303744,
+          "balanced_accuracy": 0.6021288400986506,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_seed42_mlp": {
+          "auroc": 0.65610006937231,
+          "balanced_accuracy": 0.6024662821076668,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_graph4_seed42_quantum": {
+          "auroc": 0.5976477350824722,
+          "balanced_accuracy": 0.5926885472321243,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    },
+    {
+      "directory": "results\\covariation-v1",
+      "folds": 112,
+      "matched_readout_fold_pairs": 0,
+      "models": 16,
+      "predictions": 6912,
+      "report_sha256": "e04d9213a812f1a294c49fe8b97960a1c49e6db2396a24fa01af74527188343e",
+      "verified_site_means": {
+        "raw_covar16_logistic": {
+          "auroc": 0.6681546631917128,
+          "balanced_accuracy": 0.6529687626920327,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_covar16_rbf": {
+          "auroc": 0.6517683332737675,
+          "balanced_accuracy": 0.6014284173348178,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_covar4_logistic": {
+          "auroc": 0.5796743299644528,
+          "balanced_accuracy": 0.5331186814602396,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_covar4_quantum_depth1": {
+          "auroc": 0.50808289208501,
+          "balanced_accuracy": 0.5072071179460649,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_covar4_quantum_depth2": {
+          "auroc": 0.5162047581494908,
+          "balanced_accuracy": 0.49043773990452,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_covar4_rbf": {
+          "auroc": 0.5373193230509209,
+          "balanced_accuracy": 0.5275269122986113,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_covar8_logistic": {
+          "auroc": 0.6153268356447974,
+          "balanced_accuracy": 0.575171088005246,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "raw_covar8_rbf": {
+          "auroc": 0.6263246398093054,
+          "balanced_accuracy": 0.5896163729288412,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_covar16_logistic": {
+          "auroc": 0.6268846856388812,
+          "balanced_accuracy": 0.5820997092018949,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_covar16_rbf": {
+          "auroc": 0.6115118260737867,
+          "balanced_accuracy": 0.5691994210778893,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_covar4_logistic": {
+          "auroc": 0.5603415303893758,
+          "balanced_accuracy": 0.526051311667185,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_covar4_quantum_depth1": {
+          "auroc": 0.571273582219369,
+          "balanced_accuracy": 0.5257555724917855,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_covar4_quantum_depth2": {
+          "auroc": 0.5005366384506004,
+          "balanced_accuracy": 0.4887886025281324,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_covar4_rbf": {
+          "auroc": 0.5698790652618232,
+          "balanced_accuracy": 0.5610306316611625,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_covar8_logistic": {
+          "auroc": 0.6027173738282612,
+          "balanced_accuracy": 0.5742140145943734,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        },
+        "residual_covar8_rbf": {
+          "auroc": 0.5642328418270455,
+          "balanced_accuracy": 0.5180685235308926,
+          "capped_refit_count": 0,
+          "convergence_warning_count": 0
+        }
+      }
+    }
+  ],
+  "lockfile_sha256": "1eaef8a7bcc8ddeec2c1eaf41764dd3e7fccbfca35af612dbbc9bf4f933b9502",
+  "permutation_test": {
+    "directory": "results\\permutation-v2",
+    "empirical_one_sided_p": 0.01,
+    "null_mean": 0.4979431193072074,
+    "observed_balanced_accuracy": 0.6905636320458193,
+    "permutations": 99,
+    "report_sha256": "7236131c30f07f2a3722b76d13755dc9af153aadfbdd673a25da845fb343d082",
+    "scope": "Observed predictions recomputed; null target construction and statistic arithmetic checked; null model predictions not independently refitted",
+    "unique_target_vectors": 99
+  },
+  "run_finished_utc": "2026-10-22T11:04:57.964459+00:00",
+  "run_started_utc": "2026-10-22T11:04:54.021575+00:00",
+  "script_sha256": "35b0e62624d9edb05dc6cdd3039a078d2e18aef6518cfd3ff0e9d42ec77c12d7",
+  "source_sha256": {
+    "__init__.py": "0fec92d3b6f0c51c7b4594d3644226aa0afc8489cf640bc61951ae6e74bea568",
+    "baselines.py": "bbd48dbda3c9f2c91534f7233a4cd32909174aaebd31099186ede69908425335",
+    "covariation.py": "a9135cbf49735f59ae5e462cb24c1a422b7984a071ae1d1817a5ac1ff8f93856",
+    "data/__init__.py": "5ac8cb992062e110f0e6b5fcce8cfd7b072303c635ff7dae44a78ca3ef21d6c3",
+    "data/abide.py": "b6b0ddd7ac558144bcf23b084f967fca6c65ec66aabf1036a245c076b60d2eff",
+    "data/cohort.py": "d9cf54c255a9a90af6ebbe77d5beab6d9de53d4fec93b4077cc1a296bc7ba632",
+    "data/connectivity.py": "25654b73b55bf251fcb68664e93d21a81950c52e79a65502f182db5910fca55b",
+    "data/dataset.py": "aed427b1cd1b5fc15ab38a8b94dbaef942dc2007b5d34dbe11962ca6f861e21c",
+    "data/smoke.py": "e574346bf7b74ab7bff35d464fb637c10b5e0ffa4e0b0471721e0bd106d21b03",
+    "data/splits.py": "d36ae5d4adf916b553b434108f02c2aa0ac0c5951e640b71a309a95ecccb66c1",
+    "evaluation.py": "01718598a0091245279ea7caf42769baeae924cb6ee9b3a443b89f3ac5c9ab64",
+    "experiments.py": "6eea9bbde63871c4fbc2556148d2bca6178734267f1b24449fe8d823f42374c0",
+    "graph_encoder.py": "1360394f1bcac0705ea0967865ec0249c8226593593a6d9a093326323acc06e2",
+    "graph_experiment.py": "962b12857ffa229b868c6726319599cad43c1f924bbbb64de57e0b2e7ce71cd1",
+    "permutation.py": "b429bdecbd967f5a5a3ae77d8ef6bc00d1bc10f969d240fbc75d1d8f214062e7",
+    "provenance.py": "93019161448e8c9c191ea7782aaa66c88dabca5f77adc2c3d7edf14316bd62a2",
+    "quantum_kernels.py": "8d462a20da8d3c490c1483a182e8f21213dd67508f7f59b6e96023666203890c",
+    "representations.py": "b9e106bc4a7557a4fdd4a152989cc336a8025057961d964e2bf33ad9a84fbe90",
+    "variational.py": "9c752c2aeddb8f8c79b97ab019b54ffc0c293d453e94ed1d469eec12e5347eaf",
+    "variational_experiment.py": "38597d2a617a1a8e81cf61c9506f6cbe4d8f8ef2dc996c5928b52f87f8878b10"
+  },
+  "source_snapshot_sha256": "58e81c8d3289d3fc56cd75438e0b2e6149311e3772ff5e75dec8493ea1e599df",
+  "subjects": 432
+}

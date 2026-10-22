@@ -1,0 +1,37 @@
+{
+  "experiment_version": "edge-covariation-module-stability-v1",
+  "covariation_report_sha256": "e04d9213a812f1a294c49fe8b97960a1c49e6db2396a24fa01af74527188343e",
+  "interpretation": "Outer-training-fold overlap diagnostic; no diagnosis labels used.",
+  "summaries": {
+    "raw_covar16": {
+      "outer_site_pairs": 21,
+      "mean_candidate_edge_jaccard": 0.5830845097652122,
+      "mean_signed_module_jaccard_after_best_matching": 0.4175102081415687
+    },
+    "raw_covar4": {
+      "outer_site_pairs": 21,
+      "mean_candidate_edge_jaccard": 0.5830845097652122,
+      "mean_signed_module_jaccard_after_best_matching": 0.30320440721894065
+    },
+    "raw_covar8": {
+      "outer_site_pairs": 21,
+      "mean_candidate_edge_jaccard": 0.5830845097652122,
+      "mean_signed_module_jaccard_after_best_matching": 0.3462079223472082
+    },
+    "residual_covar16": {
+      "outer_site_pairs": 21,
+      "mean_candidate_edge_jaccard": 0.6159751178450372,
+      "mean_signed_module_jaccard_after_best_matching": 0.3774462967271146
+    },
+    "residual_covar4": {
+      "outer_site_pairs": 21,
+      "mean_candidate_edge_jaccard": 0.6159751178450372,
+      "mean_signed_module_jaccard_after_best_matching": 0.3013546154100748
+    },
+    "residual_covar8": {
+      "outer_site_pairs": 21,
+      "mean_candidate_edge_jaccard": 0.6159751178450372,
+      "mean_signed_module_jaccard_after_best_matching": 0.3639496958602647
+    }
+  }
+}

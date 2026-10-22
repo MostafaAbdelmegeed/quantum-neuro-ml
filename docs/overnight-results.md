@@ -1,6 +1,6 @@
 # Results and current status
 
-Updated 2026-10-22. The primary ABIDE I cohort and nested cross-site benchmark are frozen. All planned classical, nuisance-control, PCA-kernel, trainable-readout, seed-sensitivity, label-permutation, bounded graph-kernel, and frozen graph/readout experiments are complete. The independent audit passed for 16 experiment series, 145 model settings, and 62,640 held-out predictions, plus the permutation artifacts. The sanitized aggregate and figures are exported below. An uncapped graph-kernel run was interrupted after one polynomial SVM fit remained active for more than nine hours; the complete rerun uses a fixed polynomial solver cap.
+Updated 2026-10-22. The primary ABIDE I cohort and nested cross-site benchmark are frozen. The classical, nuisance-control, PCA-kernel, trainable-readout, seed-sensitivity, label-permutation, bounded graph-kernel, frozen graph/readout, and edge co-variation experiments are complete. The final independent audit passed for 17 experiment series, 161 model settings, and 69,552 held-out predictions, plus the permutation artifacts. The sanitized aggregate and figures are exported below. A separate outer-fold diagnostic measures stability of the learned edge groups. An uncapped graph-kernel run was interrupted after one polynomial SVM fit remained active for more than nine hours; the complete rerun uses a fixed polynomial solver cap.
 
 ## Main finding
 
@@ -34,6 +34,12 @@ The original classical predictions were independently reproduced by the verified
 | Residual PCA4 trainable quantum readout, three-seed mean | 56.1% | 0.598 | Below the matched MLP at 60.0% / 0.635 |
 | Raw graph4 quantum trainable readout, three-seed mean | 59.4% | 0.639 | Below matched MLP at 60.7% / 0.652; paired difference -1.28 points (site-bootstrap interval -3.04 to +0.52) |
 | Residual graph4 quantum trainable readout, three-seed mean | 59.5% | 0.612 | Below matched MLP at 60.4% / 0.656; paired difference -0.82 points (-2.18 to +0.31) |
+| Raw co-variation, 16 modules, logistic | 65.3% | 0.668 | Best co-variation setting; full-edge logistic remains 69.1% |
+| Raw co-variation, 16 modules, RBF SVM | 60.1% | 0.652 | Lower than its matched logistic model |
+| Raw co-variation, 8 modules, RBF SVM | 59.0% | 0.626 | Below the 16-module logistic setting |
+| Raw co-variation, 4 modules, quantum kernel, depth 1 | 50.7% | 0.508 | Near chance and below matched classical readouts |
+| Raw co-variation, 4 modules, quantum kernel, depth 2 | 49.0% | 0.516 | Near chance; 4.27 points below matched logistic |
+| Residual co-variation, 16 modules, logistic | 58.2% | 0.627 | Lower than raw connectivity |
 
 The raw PCA4 quantum-kernel result did not carry to six or eight coordinates: those settings scored 59.6% and 57.6%. On the raw PCA4 representation, averaging the three seeds gave 56.4% at half the training data and 53.9% at one quarter; the matched logistic models scored 58.5% and 56.4%. The small-data comparison therefore does not support a stable quantum-kernel edge.
 
@@ -42,6 +48,14 @@ The trainable quantum readout used a four-qubit variational circuit with 21 trai
 The completed signed-graph run produces little evidence of a quantum-kernel advantage on the learned graph embeddings. Raw graph quantum minus logistic balanced accuracy averaged 0.33 percentage points (descriptive seven-site interval: -0.66 to 1.65); quantum minus polynomial SVM averaged -1.38 points (-6.26 to 2.21). Residual graph quantum was close to logistic on balanced accuracy but lower on AUROC. None of the capped polynomial fits reported convergence warnings. The solver cap followed a nine-hour stall in the first graph run; the retained partial run is separate from the complete rerun.
 
 The follow-up froze each fold-trained graph encoder and compared a 21-parameter quantum readout with a 19-parameter MLP over three seeds. The quantum readout averaged 59.4% balanced accuracy on raw embeddings and 59.5% after residualization, compared with 60.7% and 60.4% for the MLP. Both descriptive paired seven-site intervals include zero. This result does not support an advantage for the quantum readout in this setup.
+
+## Higher-order edge co-variation experiment
+
+To test the idea of “functional groups of functional groups,” a second layer groups connectivity edges according to how their strengths co-vary across training participants. For each training partition, the model selects 256 high-variance edges, estimates their across-participant correlation, clusters edges by absolute correlation, and creates signed group summaries. Diagnosis labels are not used to learn the groups. The full transformation is fitted inside each inner and outer training split. The [protocol](covariation-protocol.md) describes the method and limits.
+
+The best result was the 16-module raw logistic model: 65.3% balanced accuracy and 0.668 AUROC. That is descriptively 5.63 percentage points above the raw PCA4 logistic baseline (seven-site paired bootstrap interval -0.85 to +12.68 points), and 0.78 points above the PCA4 quantum kernel (-3.87 to +4.99 points). The full-edge logistic reference remains higher at 69.1%. These comparisons are exploratory across several module counts and readouts; none establishes a reliable gain. The four-module quantum kernels were near chance, and the depth-2 raw model was below its matched logistic comparison by 4.27 points (descriptive interval -8.28 to -0.09).
+
+The learned groups were not very stable across outer training folds. Across the 21 pairs of folds, selected-edge Jaccard overlap averaged 58% for raw and 62% for residual edges. After optimally matching modules and allowing sign orientation to flip, signed module overlap averaged 30% to 42% across 4, 8, and 16 modules. This instability limits biological interpretation: these are cohort-dependent statistical groupings, not established brain systems or disease mechanisms. The tracked [stability summary](results/covariation-stability.json) contains the fold-pair overlap estimates.
 
 ## Confounding and label check
 
@@ -57,9 +71,11 @@ The candidate inventory reproduced byte-for-byte offline with matching collectio
 
 ## Figures and artifacts
 
-The [sanitized aggregate](results/aggregate.json) contains fold-level metrics and diagnostics without participant-level records. It is linked to the final audit report by SHA-256. The independent audit report is retained under the ignored `results/audit-final-v2/` directory.
+The [sanitized aggregate](results/aggregate.json) contains fold-level metrics and diagnostics without participant-level records. Its SHA-256 points to the tracked [independent artifact audit](results/artifact-audit.json), which covers 17 series, 161 settings, and 69,552 held-out prediction rows, plus the permutation artifacts. The audit summary contains no participant-level predictions.
 
 ![Matched PCA quantum and classical kernel results](figures/pca-comparison.png)
+
+![Classification from training-fold edge co-variation groups](figures/edge-covariation-modules.png)
 
 ![Matched quantum and classical graph readout results](figures/graph-variational-readouts.png)
 
@@ -71,6 +87,6 @@ Additional controls, permutation, seed, and training-fraction figures are in [do
 
 The current work establishes a reproducible benchmark on one screened cohort, not clinical utility, biomarker validity, or quantum-computing advantage. The limited number and imbalance of acquisition groups constrain both estimates and intervals. Only 432 of the 1,035 metadata-available participants remained after scan availability and strict QC (41.7%); this may select a nonrepresentative cohort. The PCA quantum-kernel finding should be checked in a prospectively specified independent dataset with compatible quality fields, or in a new confirmatory cohort, before stronger claims are made.
 
-The next research decision should focus on confirmation rather than adding more same-cohort model variants. If the raw PCA4 kernel remains the main signal, the follow-up should freeze that representation and kernel in advance, define a primary metric and a meaningful effect threshold, and evaluate it on an independent cohort with a matching QC policy. Increasing qubit count or searching more feature maps on the same seven groups would not resolve the current validation limit.
+The next research decision should focus on confirmation rather than adding more same-cohort model variants. The co-variation grouping could be useful as a compact feature representation, but its fold instability means the next step should first test a prospectively frozen grouping procedure on independent participants. If the raw PCA4 kernel remains the main signal, the follow-up should freeze that representation and kernel in advance, define a primary metric and a meaningful effect threshold, and evaluate it on an independent cohort with a matching QC policy. Increasing qubit count or searching more feature maps on the same seven groups would not resolve the current validation limit.
 
 Reproduction commands and environment pins are in [reproduction.md](reproduction.md). Protocols and seed choices are documented in the linked experiment notes there; the verified cohort and original classical findings remain described in the [data card](data-card.md) and [classical results](classical-results.md).

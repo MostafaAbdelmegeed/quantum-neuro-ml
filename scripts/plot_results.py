@@ -18,7 +18,7 @@ SERIES = {
     "reference": "classical-v1-verified", "controls": "controls-v2", "pca_full": "bottleneck-v2-full",
     "pca_half": "bottleneck-v2-half", "pca_quarter": "bottleneck-v2-quarter",
     "variational": "variational-v3", "graph": "graph-v4-bounded", "permutations": "permutation-v2",
-    "graph_variational": "graph-variational-v6",
+    "graph_variational": "graph-variational-v6", "covariation": "covariation-v1",
 }
 for _seed in (137, 2026):
     for _fraction in ("quarter", "half", "full"):
@@ -258,6 +258,31 @@ def graph(reports, output):
     save(fig, output, "graph-readouts")
 
 
+def covariation(reports, output):
+    report = reports["covariation"]
+    fig, axes = plt.subplots(1, 2, figsize=(10.2, 4.4), sharey=True)
+    families = (("Logistic", "logistic", "-"), ("RBF SVM", "rbf", "-"),
+                ("Quantum depth 1", "quantum_depth1", "--"),
+                ("Quantum depth 2", "quantum_depth2", ":"))
+    for ax, kind in zip(axes, ("raw", "residual")):
+        for label, family, linestyle in families:
+            dimensions = (4,) if label.startswith("Quantum") else (4, 8, 16)
+            points = [point(report, f"{kind}_covar{dimension}_{family}")
+                      for dimension in dimensions]
+            color = COLORS["quantum"] if label.startswith("Quantum") else COLORS[family]
+            ax.errorbar(dimensions, [item[0] for item in points],
+                        yerr=[[item[1] for item in points], [item[2] for item in points]],
+                        marker="o", capsize=3, linestyle=linestyle, color=color, label=label)
+        base_axis(ax, "Raw connectivity" if kind == "raw" else "Nuisance residuals", ax is axes[0])
+        ax.set_xticks([4, 8, 16])
+        ax.set_xlabel("Learned edge co-variation modules")
+    axes[1].legend(frameon=False, fontsize=8)
+    fig.suptitle("Classification from training-fold edge co-variation groups", x=0.02,
+                 ha="left", fontweight="bold")
+    save(fig, output, "edge-covariation-modules",
+         "Modules learned without labels from training participants only; intervals are descriptive 95% site bootstrap.")
+
+
 def permutations(reports, output):
     report = reports["permutations"]
     fig, ax = plt.subplots(figsize=(8.6, 4.3))
@@ -342,6 +367,8 @@ def main():
             function(reports, args.output_dir)
     if "graph_variational" in reports:
         variational(reports, args.output_dir, key="graph_variational", representation="Graph")
+    if "covariation" in reports:
+        covariation(reports, args.output_dir)
     seed_figures(sensitivity, args.output_dir)
     with (args.results_root / SERIES["reference"] / "predictions.csv").open(newline="") as stream:
         rows = [r for r in csv.DictReader(stream) if r["model"] == "logistic"]
