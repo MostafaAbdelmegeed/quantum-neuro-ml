@@ -1,0 +1,14 @@
+{
+  "version": "abide-graph-variational-v6",
+  "encoder_protocol": "abide-signed-graph-v4",
+  "readout_protocol": "abide-variational-v3",
+  "encoder_seed": 42,
+  "readout_seeds": [42, 137, 2026],
+  "representations": ["raw", "residual"],
+  "dimensions": 4,
+  "readouts": ["mlp", "quantum"],
+  "encoder_training": "supervised_in_each_inner_and_outer_training_partition_then_frozen",
+  "reference_checks": "source_dataset_configuration_and_actual_outer_representation_fingerprints",
+  "reuse_encoder_cache": true,
+  "joint_training": false
+}

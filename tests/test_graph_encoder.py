@@ -87,3 +87,22 @@ def test_graph_nested_shared_readouts(tmp_path):
     assert len(paired_comparisons(report, 42)) == 6
     for fold in report["folds"]:
         assert fold["diagnostics"]["graph"]["training_subjects"] == 24
+
+
+def test_graph_cache_snapshot_copies_exact_bytes(tmp_path):
+    import hashlib
+    import json
+
+    from quantum_neuro_ml.graph_experiment import snapshot_cache
+
+    source = tmp_path / "source-cache"
+    source.mkdir()
+    payload = source / "nested" / "transform.pkl"
+    payload.parent.mkdir()
+    payload.write_bytes(b"cached representation")
+    destination = tmp_path / "copied-cache"
+    manifest_path = tmp_path / "cache-manifest.json"
+    manifest = snapshot_cache(source, destination, manifest_path)
+    assert manifest == {"nested/transform.pkl": hashlib.sha256(b"cached representation").hexdigest()}
+    assert json.loads(manifest_path.read_text()) == manifest
+    assert (destination / "nested" / "transform.pkl").read_bytes() == b"cached representation"

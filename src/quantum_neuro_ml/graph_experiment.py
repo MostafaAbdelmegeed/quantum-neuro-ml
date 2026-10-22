@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 from pathlib import Path
 
 import numpy as np
@@ -42,6 +43,11 @@ def validate_graph_config(config: dict) -> None:
     for key in ("spectral_dimensions", "hidden_units", "embedding_dimensions", "epochs", "batch_size"):
         if not isinstance(config[key], int) or config[key] < 1:
             raise ValueError(f"Invalid graph count: {key}")
+    if (not isinstance(config.get("polynomial_solver_max_iter"), int)
+            or config["polynomial_solver_max_iter"] < 1
+            or not np.isfinite(config.get("polynomial_solver_tolerance", np.nan))
+            or config["polynomial_solver_tolerance"] <= 0):
+        raise ValueError("Invalid polynomial solver limits")
     if config["spectral_dimensions"] >= config["nodes"] or not 2 <= config["embedding_dimensions"] <= 8:
         raise ValueError("Invalid spectral or embedding dimensions")
     if (not np.isfinite(config["learning_rate"]) or config["learning_rate"] <= 0
@@ -63,18 +69,54 @@ def graph_plans(config: dict, kernels: dict, cache: Path) -> list[ModelPlan]:
         encoder = SignedGraphEncoder(**{key: config[key] for key in (
             "spectral_dimensions", "hidden_units", "embedding_dimensions", "epochs", "batch_size",
             "learning_rate", "weight_decay", "dropout", "seed")})
+        model = plan.estimator.named_steps["model"]
+        if getattr(model, "kernel", None) == "poly":
+            model.set_params(max_iter=config["polynomial_solver_max_iter"],
+                             tol=config["polynomial_solver_tolerance"])
         pipeline = Pipeline([("input", initial), ("graph", encoder), ("scale_embedding", StandardScaler()),
-                             ("angles", BoundedAngles()), ("model", plan.estimator.named_steps["model"])], memory=memory)
+                             ("angles", BoundedAngles()), ("model", model)], memory=memory)
         plans.append(ModelPlan(plan.name.replace(f"pca{d}", f"graph{d}"), pipeline, plan.grid))
     return plans
 
 
-def run(dataset: Path, policy_path: Path, kernel_path: Path, config_path: Path, output: Path) -> dict:
+def snapshot_cache(source: Path, destination: Path, manifest_path: Path) -> dict[str, str]:
+    if not source.is_dir() or destination.exists():
+        raise ValueError("Encoder cache source must exist and destination must be new")
+    shutil.copytree(source, destination)
+    manifest = {path.relative_to(destination).as_posix(): digest(path)
+                for path in sorted(destination.rglob("*")) if path.is_file()}
+    if not manifest:
+        raise ValueError("Encoder cache source is empty")
+    manifest_path.write_text(json.dumps(manifest, sort_keys=True, indent=2) + "\n", encoding="utf-8")
+    return manifest
+
+
+def run(dataset: Path, policy_path: Path, kernel_path: Path, config_path: Path, output: Path,
+        cache_source: Path | None = None) -> dict:
     if output.exists() and any(output.iterdir()):
         raise ValueError("Experiment outputs already exist; choose a new directory")
     inputs = {"dataset": dataset, "dataset_report": dataset.with_name("report.json"),
               "manifest": dataset.with_name("manifest.csv"), "policy": policy_path,
               "kernel_protocol": kernel_path, "graph_protocol": config_path}
+    output.mkdir(parents=True, exist_ok=True)
+    cache_path = output / "cache"
+    cache_manifest_path = output / "cache-manifest.json"
+    if cache_source is not None:
+        origin_receipt = cache_source.parent / "run.json"
+        origin = json.loads(origin_receipt.read_text(encoding="utf-8"))
+        if (origin.get("state") != "failed" or digest(cache_source.parent / "source.zip")
+                != origin.get("source_snapshot_sha256")):
+            raise ValueError("Encoder cache source must come from an intact failed run")
+        snapshot_cache(cache_source, cache_path, cache_manifest_path)
+        expected_cache = json.loads(cache_manifest_path.read_text(encoding="utf-8"))
+        actual_cache = {path.relative_to(cache_path).as_posix(): digest(path)
+                        for path in sorted(cache_path.rglob("*")) if path.is_file()}
+        if actual_cache != expected_cache:
+            raise ValueError("Copied encoder cache does not match its manifest")
+        inputs["encoder_cache_manifest"] = cache_manifest_path
+        inputs["encoder_cache_origin_receipt"] = origin_receipt
+    else:
+        cache_path.mkdir()
     with recorded_run(output, {"experiment": "signed-graph-kernels-v4"}, inputs) as receipt:
         config = json.loads(config_path.read_text(encoding="utf-8"))
         kernels = json.loads(kernel_path.read_text(encoding="utf-8"))
@@ -86,7 +128,7 @@ def run(dataset: Path, policy_path: Path, kernel_path: Path, config_path: Path, 
             raise ValueError("Dataset does not match the graph node configuration")
         features = np.column_stack([arrays["age"], arrays["sex"], arrays["mean_fd"], arrays["features"]])
         data = EvaluationData(features, arrays["labels"], arrays["site_groups"], arrays["subject_ids"])
-        plans = graph_plans(config, kernels, output / "cache")
+        plans = graph_plans(config, kernels, cache_path)
         def progress(fold, rows):
             with (output / "progress.jsonl").open("a", encoding="utf-8") as stream:
                 stream.write(json.dumps({"fold": fold, "predictions": rows}, sort_keys=True) + "\n")
@@ -95,6 +137,9 @@ def run(dataset: Path, policy_path: Path, kernel_path: Path, config_path: Path, 
                       kernel_configuration=kernels, dataset_sha256=lineage["dataset_sha256"],
                       policy_sha256=lineage["policy_sha256"], metadata_sha256=lineage["metadata_sha256"],
                       manifest_sha256=lineage["manifest_sha256"])
+        if cache_source is not None:
+            report["encoder_cache_origin"] = str(cache_source.parent)
+            report["encoder_cache_manifest_sha256"] = digest(cache_manifest_path)
         report["paired_comparisons"] = paired_comparisons(report, kernels["seed"])
         write_csv(output / "predictions.csv", predictions,
                   ["model", "subject_id", "held_out_group", "label", "prediction", "score", "probability"])
@@ -108,9 +153,10 @@ def main() -> int:
     parser.add_argument("--policy", type=Path, default=DEFAULT_POLICY)
     parser.add_argument("--kernel-config", type=Path, default=DEFAULT_EXPERIMENTS)
     parser.add_argument("--config", type=Path, default=DEFAULT_GRAPH)
+    parser.add_argument("--reuse-cache-from", type=Path)
     parser.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args()
-    run(args.dataset, args.policy, args.kernel_config, args.config, args.output_dir)
+    run(args.dataset, args.policy, args.kernel_config, args.config, args.output_dir, args.reuse_cache_from)
     return 0
 
 

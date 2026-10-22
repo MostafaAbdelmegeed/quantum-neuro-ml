@@ -1,0 +1,13 @@
+# Frozen graph encoder with a variational readout
+
+Specified on 2026-10-22 at 00:16 UTC, after the nuisance controls completed and while the original graph and PCA/variational runs were in progress. Some partial graph/readout scores had been inspected. This is an exploratory extension, with no selection of a best graph seed, site, or circuit from those scores.
+
+The [v6 configuration](../config/graph-variational-v6.json) combines the fixed seed-42 [graph encoder](graph-protocol.md) with the [v3 trainable readouts](variational-protocol.md). Compare the same 21-parameter four-qubit circuit and 19-parameter MLP on raw and residual graph embeddings. Fit each readout at all three seeds, 42, 137, and 2026. Keep the v3 learning-rate grid, class weighting, optimizer, and 60-epoch schedule unchanged. The shared encoder is frozen before readout fitting; this does not test joint encoder/circuit training.
+
+The revised v4 reference must complete before this experiment starts. It uses the same encoder and representations; its polynomial readout has an iteration cap recorded in the graph protocol after the original uncapped comparison stalled. Reuse its fold-fitted preprocessing cache only after checking its completion receipt, dataset, full graph configuration, kernel settings, and source hashes. Joblib keys include training inputs and labels. A missing entry is recomputed with the same deterministic encoder settings. Check each outer fold's actual training/test representation fingerprints and training participant fingerprint against v4 before accepting progress. All readouts for a given seed also receive identical inputs, checked again in paired comparisons.
+
+This avoids fitting a different graph encoder for each readout or training it on the held-out site. Reusing a cache reduces repeated computation; it does not create additional training examples or an independent validation cohort. Input and source receipts remain separate for the new result series, `results/graph-variational-v6/`.
+
+Report all six raw/residual seed settings and their paired quantum-minus-MLP differences. For the overall descriptive interval, average the three readout seeds within each site before paired site resampling. Encoder variability is addressed separately by the three-seed v4 kernel comparisons. Runtime includes cache effects and concurrent CPU workloads and is not a controlled computational-speed comparison.
+
+Before the cohort run, a synthetic nested test must verify that the new pipelines reproduce the reference encoder's exact outer representations and preserve fold isolation. Circuit gradients, parameter activity, seed repeatability, and cache restoration are covered by the existing preflight suites.

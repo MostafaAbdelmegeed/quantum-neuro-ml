@@ -1,6 +1,6 @@
 # Milestone 0 research protocol
 
-Status: cohort v1 and the first classical evaluation frozen on 2026-10-22, before model training. The graph and quantum extensions remain planned experiments.
+Status: cohort v1 and the first classical evaluation were frozen before model training on 2026-10-22. Matched nuisance, quantum-kernel, trainable-readout, full nested graph-kernel, and frozen-encoder graph/readout follow-ups are complete. The independent audit passed for 16 series, 145 settings, and 62,640 held-out predictions. The external ABIDE II inventory is metadata-only and does not yet define a quality-controlled test cohort. Current findings and limits are summarized in [the results note](overnight-results.md).
 
 The executable inclusion rules and exact first-run evaluation are specified in [cohort policy v1](cohort-policy.md). It takes precedence over the initial alternatives below for this reference run. Dataset access and citation requirements are recorded in [data use](data-use.md); commands and outputs are described in [classical baselines](classical-baselines.md).
 

@@ -18,6 +18,8 @@
   "loss": "class_balanced_binary_cross_entropy_with_logits",
   "encoder_selection": "fixed_schedule_fit_inside_every_inner_and_outer_training_partition",
   "readouts": ["logistic", "rbf", "polynomial", "quantum"],
+  "polynomial_solver_max_iter": 100000,
+  "polynomial_solver_tolerance": 0.01,
   "angle_mapping": "pi_times_tanh_of_standardized_embedding_divided_by_2",
   "training_fraction": 1.0,
   "dtype": "float32",

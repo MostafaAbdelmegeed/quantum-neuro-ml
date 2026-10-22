@@ -29,9 +29,9 @@ The program search and the technical project will inform each other. Program pre
 
 ## Current focus
 
-**Milestone 1 - Classical baselines**
+**Milestone 4 - Results and release**
 
-Milestone 0 is complete. The first classical feature reference run is complete; graph encoders, nuisance controls, and the shared dimensional bottleneck remain next.
+The screened 432-participant cohort, classical reference, nuisance controls, PCA quantum kernels, trainable readouts, seed repetitions, permutation check, bounded full graph comparison, and frozen graph/readout comparison are complete. The independent audit passed for 16 series, 145 settings, and 62,640 held-out prediction rows, in addition to the permutation artifacts. The sanitized aggregate and figures are in the [results note](overnight-results.md); ABIDE II remains a metadata-only inventory until compatible quality fields are available.
 
 ### Completed
 
@@ -91,3 +91,17 @@ Metadata screening retained 434 participants. Two NYU control scans had constant
 The first nested evaluation produced mean balanced accuracy of 69.06% for logistic regression and 69.05% for RBF SVM, with mean AUROC 0.781 and 0.780. The dummy control scored 50% and 0.5 per site. [Full results](classical-results.md) include site variation, descriptive intervals, calibration, and tuning limitations. Motion and sex differences persist after QC; the next controls must assess them before interpreting these scores as disease-related connectivity effects.
 
 All 38 automated tests pass. A separate prediction audit reproduced each site's metrics from saved predictions and confirmed participant and group separation. The [quantum software decision](quantum-stack.md) selects PennyLane for the next stage; no quantum model has been trained.
+
+### 2026-10-22 - Matched quantum and nuisance follow-ups
+
+The original classical run was rebuilt and rerun offline. Its arrays, manifest, exclusion decisions, and 1,296 held-out predictions matched the preserved run; the prediction CSV is byte-identical. The hardened workflow records source, environment, configuration, and input receipts, and rejects changes during a run.
+
+The full-edge logistic reference averaged 69.1% balanced accuracy and 0.781 AUROC across the seven acquisition groups. Age, sex, and motion alone reached 56.3% and 0.625. Fold-fitted nuisance residualization reduced logistic performance to 64.5% and 0.713. This makes nuisance handling central to interpretation, without establishing a causal explanation for the score change.
+
+The four-coordinate fidelity quantum kernel on raw full-data PCA reached about 64.6% balanced accuracy across seeds 42, 137, and 2026. Its mean paired difference was 4.95 points against logistic and 5.70 against RBF SVM; the descriptive seven-site interval against logistic reaches zero, while the interval against RBF remains positive. The signal did not hold at six or eight coordinates or at half and quarter training fractions. Residualized PCA narrowed the difference to classical models.
+
+The trainable four-qubit readout did not consistently match its 19-parameter MLP comparator. A 99-permutation within-site label check placed the logistic reference above all shuffled statistics (empirical one-sided value 0.01). The artifact auditor independently checks the observed predictions and permutation statistic arithmetic, but does not refit every null model.
+
+An ABIDE II metadata-only inventory and offline reproduction both returned 1,007 candidates from 16 readable tables. The inventory lacks the motion and manual QC fields required by the primary cohort policy; no external imaging model was run. One polynomial SVM fit in the first full graph-kernel run remained inside an inner fold for more than nine hours. That partial run is retained as failed; the complete rerun used a fixed solver cap and a copied encoder cache checked by a saved hash manifest. The frozen-encoder graph/readout experiment is complete and is covered by the final audit. See the [current results note](overnight-results.md), [external readiness review](external-validation-readiness.md), and [reproduction steps](reproduction.md).
+
+All 87 automated tests pass, including checks for capped-solver status, cache snapshots, the independent audit, and the external inventory. The final independent audit covers 16 model series, 145 settings, and 62,640 held-out prediction rows, plus the permutation artifacts. All 87 automated tests pass. The aggregate and figures are exported and linked from the results note. The graph readout was below the matched MLP on raw and residual embeddings; the raw PCA4 quantum kernel remains the main exploratory result, pending independent confirmation.

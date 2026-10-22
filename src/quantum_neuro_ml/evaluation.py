@@ -98,14 +98,21 @@ def _fit_plan(data: EvaluationData, plan: ModelPlan, train: np.ndarray, test: np
     started = time.perf_counter()
     estimator = clone(plan.estimator)
     parameters, inner_score = {}, None
+    convergence_warnings = 0
     if plan.grid:
         search = GridSearchCV(estimator, plan.grid, scoring="balanced_accuracy", cv=inner,
                               refit=True, n_jobs=1, error_score="raise")
-        search.fit(data.features[train], data.labels[train])
+        with warnings.catch_warnings(record=True) as captured:
+            warnings.simplefilter("always", ConvergenceWarning)
+            search.fit(data.features[train], data.labels[train])
+        convergence_warnings = sum(issubclass(item.category, ConvergenceWarning) for item in captured)
         fitted, parameters = search.best_estimator_, search.best_params_
         inner_score = float(search.best_score_)
     else:
-        fitted = estimator.fit(data.features[train], data.labels[train])
+        with warnings.catch_warnings(record=True) as captured:
+            warnings.simplefilter("always", ConvergenceWarning)
+            fitted = estimator.fit(data.features[train], data.labels[train])
+        convergence_warnings = sum(issubclass(item.category, ConvergenceWarning) for item in captured)
     predicted = fitted.predict(data.features[test])
     probability = fitted.predict_proba(data.features[test])[:, 1] if hasattr(fitted, "predict_proba") else None
     score = fitted.decision_function(data.features[test]) if hasattr(fitted, "decision_function") else probability
@@ -113,6 +120,11 @@ def _fit_plan(data: EvaluationData, plan: ModelPlan, train: np.ndarray, test: np
         raise ValueError("Classifier did not return finite binary scores")
     metrics = classification_metrics(data.labels[test], predicted, score, probability)
     diagnostics = {}
+    diagnostics["convergence_warning_count"] = int(convergence_warnings)
+    if hasattr(fitted, "steps"):
+        fit_status = getattr(fitted.steps[-1][1], "fit_status_", None)
+        if fit_status is not None:
+            diagnostics["readout_fit_status"] = int(fit_status)
     if hasattr(fitted, "steps"):
         representation = fitted[:-1]
         diagnostics["training_representation_sha256"] = _array_digest(representation.transform(data.features[train]))

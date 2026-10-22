@@ -3,8 +3,11 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
 
-from quantum_neuro_ml.evaluation import EvaluationData, evaluate_models, sample_training_indices
+from quantum_neuro_ml.evaluation import EvaluationData, ModelPlan, evaluate_models, sample_training_indices
 from quantum_neuro_ml.experiments import bottleneck_plans, paired_comparisons
 from quantum_neuro_ml.experiments import validate_configuration
 from quantum_neuro_ml.data.cohort import CohortPolicy
@@ -45,6 +48,19 @@ def test_nested_classical_and_quantum_readouts_receive_identical_representations
             folds = [f for f in report["folds"] if f["held_out_group"] == group and f["model"].startswith(kind)]
             assert len({f["diagnostics"]["training_representation_sha256"] for f in folds}) == 1
             assert len({f["diagnostics"]["test_representation_sha256"] for f in folds}) == 1
+
+
+def test_convergence_warnings_and_capped_svm_status_are_recorded():
+    rng = np.random.default_rng(17)
+    labels = np.tile([0, 1], 24)
+    groups = np.repeat(list("ABCD"), 12)
+    values = rng.normal(size=(48, 3))
+    data = EvaluationData(values, labels, groups, np.arange(1, 49))
+    pipeline = Pipeline([("scale", StandardScaler()), ("model", SVC(kernel="rbf", max_iter=1))])
+    plan = ModelPlan("capped", pipeline, {"model__C": [1000.0]})
+    report, _ = evaluate_models(data, [plan], verbose=False)
+    assert all(f["diagnostics"]["convergence_warning_count"] > 0 for f in report["folds"])
+    assert all(f["diagnostics"]["readout_fit_status"] == 1 for f in report["folds"])
 
 
 @pytest.mark.parametrize("field,value", [("inner_splits", 5), ("quantum_shots", 100),

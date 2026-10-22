@@ -1,0 +1,73 @@
+{
+  "version": "abide-exploratory-v2",
+  "cohort_policy": "abide-cpac-cc200-v1",
+  "seed": 2026,
+  "outer_cv": "leave_one_acquisition_group_out",
+  "inner_splits": 3,
+  "selection_metric": "balanced_accuracy",
+  "covariates": [
+    "age",
+    "age_squared",
+    "sex_code_2",
+    "mean_fd"
+  ],
+  "residualization": "ordinary_least_squares_all_training_participants_with_intercept",
+  "logistic_C": [
+    0.001,
+    0.01,
+    0.1,
+    1.0
+  ],
+  "expanded_svm_C": [
+    0.1,
+    1.0,
+    10.0,
+    100.0,
+    1000.0
+  ],
+  "gamma_factors": [
+    0.1,
+    1.0,
+    10.0
+  ],
+  "pca_rank": 8,
+  "pca_dimensions": [
+    4
+  ],
+  "pca_solver": "randomized",
+  "pca_iterated_power": 5,
+  "representations": [
+    "raw",
+    "residual"
+  ],
+  "angle_mapping": "pi_times_tanh_of_standardized_component_divided_by_2",
+  "kernel_C": [
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "polynomial_degrees": [
+    2,
+    3
+  ],
+  "polynomial_coef0": 1.0,
+  "quantum_depths": [
+    1,
+    2
+  ],
+  "quantum_feature_map": "per_layer_H_then_RY_angles_then_chain_IsingZZ_angle_products_divided_by_pi",
+  "quantum_device": "default.qubit",
+  "quantum_shots": null,
+  "low_sample_dimensions": [
+    4
+  ],
+  "low_sample_fractions": [
+    0.25,
+    0.5
+  ],
+  "label_permutations": 99,
+  "permutation_strata": "acquisition_group",
+  "permutation_model": "full_edge_logistic_with_original_v1_grid",
+  "permutation_statistic": "mean_held_out_group_balanced_accuracy"
+}

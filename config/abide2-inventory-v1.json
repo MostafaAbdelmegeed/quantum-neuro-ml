@@ -1,0 +1,12 @@
+{
+  "version": "abide2-metadata-inventory-v1",
+  "bucket_url": "https://fcp-indi.s3.amazonaws.com/",
+  "raw_prefix": "data/Projects/ABIDE2/RawData/",
+  "excluded_collections": ["ABIDEII-UCLA_Long", "ABIDEII-UPSM_Long"],
+  "abide1_metadata_sha256": "009f01a89697113e5375ded4fbcff4c85e89a4daa6d13e63c21ae5d57dda0865",
+  "required_fields": ["participant_id", "site_id", "dx_group", "age_at_scan", "sex"],
+  "text_encoding": "utf8_sig_or_latin1_for_isolated_nbsp_only",
+  "duplicate_identity_policy": "exclude_all_ambiguous_canonical_ids_and_nonmissing_ndar_guids",
+  "candidate_meaning": "metadata_complete_and_no_detected_development_release_overlap",
+  "model_eligible": false
+}

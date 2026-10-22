@@ -6,17 +6,17 @@ A long-term, reproducible portfolio project exploring hybrid quantum-classical m
 
 Evaluate whether quantum feature maps and variational quantum classifiers add measurable value over carefully tuned classical baselines for a constrained neuroimaging classification task.
 
-## Guiding principle
+## Study design
 
-This is an evidence-first project. Every quantum result will be compared against a matched classical baseline, using the same split, preprocessing, metrics, and compute-budget notes.
+The benchmark uses nested leave-one-acquisition-group-out evaluation. Quantum models are compared with classical models on the same folds and, where relevant, the same fold-fitted representations. Results are exploratory because the cohort has seven groups and the follow-up experiments cover several representations and model settings.
 
 ## Roadmap
 
 - [x] **Milestone 0 - Foundations:** establish environment, reading list, data decision, and reproducibility rules.
-- [ ] **Milestone 1 - Classical baseline:** implement a compact, well-evaluated baseline on a selected public neuroimaging-derived dataset.
-- [ ] **Milestone 2 - Quantum kernel:** test a quantum feature map/kernel under the same evaluation protocol.
-- [ ] **Milestone 3 - Variational classifier:** compare a hybrid variational circuit against the baselines.
-- [ ] **Milestone 4 - Portfolio release:** publish results, limitations, reproducibility instructions, and a concise technical write-up.
+- [x] **Milestone 1 - Classical baseline:** freeze the cohort and nested cross-site benchmark.
+- [x] **Milestone 2 - Quantum kernel:** compare fidelity kernels with matched linear, RBF, and polynomial models on PCA-reduced connectivity and learned graph embeddings. Full-edge quantum models remain outside this study.
+- [x] **Milestone 3 - Variational classifier:** compare a trainable quantum readout with a parameter-matched classical network on matched PCA representations.
+- [x] **Milestone 4 - Portfolio release:** complete the independent artifact audit and results write-up. External cohort evaluation remains gated on compatible scan-quality metadata.
 
 ## Project tracking
 
@@ -24,7 +24,9 @@ Progress and decisions are maintained in [the project log](docs/project-log.md).
 
 The [research protocol](docs/research-protocol.md) defines the study. [Cohort policy v1](docs/cohort-policy.md) freezes the data rules and first classical evaluation before model training.
 
-The [first classical results](docs/classical-results.md) use 432 validated participants across seven acquisition groups. Logistic regression and RBF SVM both average about 69.1% balanced accuracy and 0.78 AUROC. Nuisance controls and graph/quantum models remain next.
+The [first classical results](docs/classical-results.md) use 432 screened participants across seven acquisition groups. Logistic regression averages 69.1% site-mean balanced accuracy and 0.781 AUROC. Subsequent exploratory work found that age, sex, and motion controls change performance; the quantum-kernel result depends on the representation and PCA dimension; and the trainable quantum readout did not consistently match its classical neural-network comparator. The [results report](docs/overnight-results.md) summarizes the completed comparisons, independent artifact audit, and figures. Its leading exploratory result is the raw PCA4 quantum kernel; the graph-kernel and trainable graph-readout comparisons did not show a quantum advantage.
+
+The ABIDE II work currently covers public metadata inventory only. It found 1,007 metadata candidates across 16 readable collection tables, but those tables do not provide the quality fields used to screen the primary cohort. No external imaging model result is available. See the [external validation readiness note](docs/external-validation-readiness.md).
 
 ## Initial research direction
 
