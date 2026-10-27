@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this code or aggregate results, cite this repository, record the commit used, and cite the underlying datasets."
+type: software
+title: "Quantum Neuro ML: a cross-site classical and quantum connectivity benchmark"
+authors:
+  - family-names: Abdelmegeed
+    given-names: Mostafa
+repository-code: "https://github.com/MostafaAbdelmegeed/quantum-neuro-ml"
+url: "https://github.com/MostafaAbdelmegeed/quantum-neuro-ml"
+license: Apache-2.0
+keywords:
+  - quantum machine learning
+  - neuroimaging
+  - functional connectivity
+  - cross-site evaluation
+  - reproducible research

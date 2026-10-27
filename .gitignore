@@ -14,6 +14,8 @@ venv/
 
 # Python packaging artifacts
 *.egg-info/
+.pytest_cache/
+.ruff_cache/
 
 # Editors and operating systems
 .vscode/

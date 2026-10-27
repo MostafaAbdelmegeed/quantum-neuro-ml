@@ -1,78 +1,100 @@
 # Quantum Neuro ML
 
-A long-term, reproducible portfolio project exploring hybrid quantum-classical machine learning for neuroimaging.
+**A cross-site benchmark of classical and quantum machine learning for functional brain connectivity.**
 
-## Goal
+[Results report](docs/overnight-results.md) · [Study protocol](docs/research-protocol.md) · [Reproduction guide](docs/reproduction.md) · [Data card](docs/data-card.md) · [Artifact audit](docs/results/artifact-audit.json)
 
-Evaluate whether quantum feature maps and variational quantum classifiers add measurable value over carefully tuned classical baselines for a constrained neuroimaging classification task.
+Do quantum feature maps or trainable quantum readouts improve classification when the test data come from an unseen acquisition group? This study compares them with classical models on the same folds and representations, using a screened ABIDE I resting-state fMRI cohort.
 
-## Study design
+The completed benchmark covers **432 participants, seven acquisition groups and 17 experiment series**. Its independent artifact audit checks 161 model settings and 69,552 held-out prediction rows, plus the permutation artifacts. Public outputs contain aggregate results; participant-level data and predictions remain outside Git.
 
-The benchmark uses nested leave-one-acquisition-group-out evaluation. Quantum models are compared with classical models on the same folds and, where relevant, the same fold-fitted representations. Results are exploratory because the cohort has seven groups and the follow-up experiments cover several representations and model settings.
+![Matched classical and quantum kernels on four, six and eight PCA coordinates. The four-coordinate raw quantum kernel is strongest within that compressed comparison; the result changes with dimension and nuisance handling.](docs/figures/pca-comparison.png)
 
-## Roadmap
+*Points show unweighted means across seven held-out acquisition groups for the primary PCA seed, 42. Error bars are descriptive 95% site-bootstrap intervals; outer training sets overlap. The three-seed analysis is reported below and in the full results.*
 
-- [x] **Milestone 0 - Foundations:** establish environment, reading list, data decision, and reproducibility rules.
-- [x] **Milestone 1 - Classical baseline:** freeze the cohort and nested cross-site benchmark.
-- [x] **Milestone 2 - Quantum kernel:** compare fidelity kernels with matched linear, RBF, and polynomial models on PCA-reduced connectivity and learned graph embeddings. Full-edge quantum models remain outside this study.
-- [x] **Milestone 3 - Variational classifier:** compare a trainable quantum readout with a parameter-matched classical network on matched PCA representations.
-- [x] **Milestone 4 - Portfolio release:** complete the independent artifact audit and results write-up. External cohort evaluation remains gated on compatible scan-quality metadata.
+## What the experiments show
 
-## Project tracking
+A four-coordinate quantum fidelity kernel reached **64.6% mean site balanced accuracy** across three PCA seeds, above its matched compressed logistic and RBF models. The full-connectivity logistic reference remained stronger at **69.1%**. The quantum result weakened after nuisance residualization and with less training data; it did not extend to the trainable quantum readouts.
 
-Progress and decisions are maintained in [the project log](docs/project-log.md). GitHub Issues will track discrete tasks; this document records decisions and research notes that need context.
+| Comparison | Mean site balanced accuracy | Context |
+|---|---:|---|
+| Full-edge logistic reference | 69.1% | Uses the complete connectivity representation |
+| Raw PCA4 quantum kernel | 64.6% | Mean over three PCA seeds |
+| Matched raw PCA4 logistic | 59.6% | Same compressed inputs and folds |
+| Matched raw PCA4 RBF SVM | 58.9% | Same compressed inputs and folds |
+| Raw PCA4 trainable quantum readout | 56.5% | Below its matched 19-parameter MLP at 58.8% |
+| Raw edge co-variation, 16 groups, logistic | 65.3% | Exploratory representation follow-up |
 
-The [research protocol](docs/research-protocol.md) defines the study. [Cohort policy v1](docs/cohort-policy.md) freezes the data rules and first classical evaluation before model training.
+These comparisons do not establish quantum advantage or clinical utility. They span seven acquisition groups and several exploratory settings. The [results report](docs/overnight-results.md) gives the paired differences, uncertainty, nuisance controls and weaker results. The [sanitized aggregate](docs/results/aggregate.json) contains fold-level metrics and model settings.
 
-The [first classical results](docs/classical-results.md) use 432 screened participants across seven acquisition groups. Logistic regression averages 69.1% site-mean balanced accuracy and 0.781 AUROC. Subsequent exploratory work found that age, sex, and motion controls change performance; the quantum-kernel result depends on the representation and PCA dimension; and the trainable quantum readout did not consistently match its classical neural-network comparator. The [results report](docs/overnight-results.md) summarizes the completed comparisons, independent artifact audit, and figures. The latest follow-up tests training-fold groups of connectivity edges that co-vary across participants. Its best result is a 16-group classical model at 65.3% balanced accuracy, but group membership varies across folds and the full-edge logistic reference remains stronger. The raw PCA4 quantum kernel is still the leading quantum result; these experiments do not establish a quantum advantage.
+## How evaluation avoids leakage
 
-The ABIDE II work currently covers public metadata inventory only. It found 1,007 metadata candidates across 16 readable collection tables, but those tables do not provide the quality fields used to screen the primary cohort. No external imaging model result is available. See the [external validation readiness note](docs/external-validation-readiness.md).
+The outer loop holds out an entire acquisition group. Every fitted transformation, including scaling, residualization, PCA, graph encoding and edge grouping, uses only the relevant training partition. Three grouped inner folds select hyperparameters before the final fit for that outer fold.
 
-## Initial research direction
-
-Start with the public, multi-site ABIDE I resting-state fMRI dataset and PCP ROI time-series derivatives. The initial task is cross-site autism-versus-control classification from functional-connectivity graphs, with classical and hybrid quantum-classical models evaluated under identical leakage-resistant splits.
-
-## Repository structure
-
-```text
-docs/        Project log, literature notes, and decision records
-config/      Versioned cohort inclusion policies
-src/         Reusable data, modeling, and evaluation code
-tests/       Automated checks as the codebase matures
+```mermaid
+flowchart TD
+    A[Screened ABIDE I cohort<br/>432 participants · 7 acquisition groups] --> B[Outer split: hold out one acquisition group]
+    B --> C[Remaining groups: training data]
+    B --> D[Held-out group: test data]
+    C --> E[Three grouped inner folds<br/>Fit transformations and select hyperparameters]
+    E --> F[Refit on outer training groups]
+    F --> G[Evaluate once on held-out group]
+    D --> G
+    G --> H[Repeat for all seven groups<br/>Report site means and paired differences]
 ```
 
-## Development quick start
+The cohort uses the ABIDE I PCP C-PAC filtered, no-global-signal-regression, CC200 derivatives. The frozen policy requires complete demographic and motion fields, five manual quality ratings marked OK, mean framewise displacement below 0.2, at least 100 timepoints, and minimum group sizes. Two constant-signal scans were excluded after metadata screening. See the [cohort policy](docs/cohort-policy.md) and [cohort audit](docs/cohort-audit.md).
 
-Requires Python 3.11 or newer and [uv](https://docs.astral.sh/uv/). The recorded development environment uses Python 3.11; `uv.lock` fixes dependency versions.
+## The higher-order representation experiment
+
+The edge co-variation follow-up groups connectivity edges by how their strengths vary together across training participants. It selects high-variance edges, clusters them by absolute correlation, and forms signed group summaries without using diagnosis labels to learn the groups.
+
+![Classification using four, eight and sixteen groups of co-varying connectivity edges, with classical and quantum readouts.](docs/figures/edge-covariation-modules.png)
+
+The best setting was the 16-group raw logistic model at 65.3%. The four-group quantum kernels were near chance. Signed group overlap across outer folds averaged only 30–42%, which limits biological interpretation: these are cohort-dependent statistical groupings. The [protocol](docs/covariation-protocol.md) and [stability summary](docs/results/covariation-stability.json) retain the full comparison.
+
+## Run and reproduce
+
+Use Python 3.11 and [uv](https://docs.astral.sh/uv/getting-started/installation/). The lockfile records dependency versions. The complete test suite includes the graph and quantum extras:
 
 ```bash
-uv sync --locked --extra dev --python 3.11
-uv run --locked --extra dev python -m pytest
+git clone https://github.com/MostafaAbdelmegeed/quantum-neuro-ml.git
+cd quantum-neuro-ml
+uv sync --locked --extra dev --extra graph --extra quantum --python 3.11
+uv run --locked --extra dev --extra graph --extra quantum python -m pytest
 ```
 
-Generate the local ABIDE derivative manifest without downloading the imaging data:
+To generate the manifest and screened connectivity dataset, then run the classical reference:
 
 ```bash
-uv run --locked --extra dev qneuro-abide-manifest --output data/manifests/abide-cpac-filt-noglobal-cc200.csv
+uv run --locked qneuro-abide-manifest --output data/manifests/abide-cpac-filt-noglobal-cc200.csv
+uv run --locked qneuro-abide-cohort
+uv run --locked qneuro-abide-build --workers 4
+uv run --locked qneuro-abide-baseline
 ```
 
-Generated subject manifests and downloaded data remain untracked. Verified cohort counts and the source-metadata fingerprint are recorded in [the ABIDE data card](docs/data-card.md).
+Data acquisition requires network access. Read the [data-use and citation notes](docs/data-use.md) before downloading. The code license does not cover the dataset. For the frozen snapshot, offline reproduction, quantum comparisons, independent artifact audit and figure generation, follow the [reproduction guide](docs/reproduction.md) and [classical baseline instructions](docs/classical-baselines.md).
 
-Run the connectivity smoke test on eight participants from NYU and PITT:
+The original classical reference was independently rerun: all 1,296 prediction rows and model summaries matched, and its prediction file was byte-identical. The broader artifact audit recomputes metrics and checks partitions, participant identities and source receipts. It does not refit every model or the 99 permutation classifiers.
 
-```bash
-uv run --locked --extra dev qneuro-abide-smoke
-uv run --locked --extra dev qneuro-abide-smoke --offline
-```
+## Repository map
 
-The command downloads ROI time series, records file checksums, and builds Pearson and Fisher-z connectivity matrices. It reserves PITT as the test site. Outputs stay in the ignored `data/` directory. See [the smoke-test contract](docs/smoke-test.md) for selection rules and output formats. This cohort checks the pipeline independently of the research inclusion rules.
+| Location | Contents |
+|---|---|
+| [`src/quantum_neuro_ml/`](src/quantum_neuro_ml/) | Data pipeline, representations, classical models and quantum comparisons |
+| [`config/`](config/) | Frozen cohort and experiment configurations |
+| [`scripts/`](scripts/) | Follow-up experiments, audits and public figure generation |
+| [`tests/`](tests/) | Data, fold isolation, numerical and artifact checks |
+| [`docs/`](docs/README.md) | Protocols, methods, results and research decisions |
+| [`docs/results/`](docs/results/) | Sanitized aggregate, independent audit and group-stability summary |
+| [`docs/figures/`](docs/figures/) | Publication figures in PNG and SVG |
 
-Build the screened research cohort and run the classical reference experiment:
+`data/`, `results/` and `artifacts/` are ignored local directories. Downloaded scans, participant metadata and individual predictions are not distributed with this repository.
 
-```bash
-uv run --locked --extra dev qneuro-abide-cohort
-uv run --locked --extra dev qneuro-abide-build --workers 4
-uv run --locked --extra dev qneuro-abide-baseline
-```
+## Current status and companion project
 
-These commands use the pinned metadata snapshot described in [the reproduction instructions](docs/classical-baselines.md). The models use nested acquisition-group folds, with scaling fitted inside each training fold. Participant data and predictions stay in ignored directories; aggregate findings belong in `docs/`.
+The primary benchmark and bounded follow-ups are complete. External validation remains unresolved: an ABIDE II metadata inventory found 1,007 candidates across 16 readable collection tables, but the available tables lack the quality fields required by the primary policy. There is no ABIDE II model score. The [readiness note](docs/external-validation-readiness.md) explains what is missing.
+
+The next portfolio study, **[Quantum generative learning](https://github.com/MostafaAbdelmegeed/quantum-generative-learning)**, studies classical training of IQP generators, Qiskit sampling and connectivity/noise tradeoffs. It is a separate project with synthetic data and its own protocols. The [research comparison](docs/quantum-portfolio-research.md) records why that direction was selected.
+
+For this study's decisions and completed milestones, see the [project log](docs/project-log.md). To cite the code and aggregate results, use [`CITATION.cff`](CITATION.cff) and record the commit used. Code is licensed under [Apache-2.0](LICENSE); dataset citations and terms are listed separately in [data use](docs/data-use.md).
