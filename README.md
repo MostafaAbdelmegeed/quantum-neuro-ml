@@ -31,17 +31,7 @@ These comparisons do not establish quantum advantage or clinical utility. They s
 
 The outer loop holds out an entire acquisition group. Every fitted transformation, including scaling, residualization, PCA, graph encoding and edge grouping, uses only the relevant training partition. Three grouped inner folds select hyperparameters before the final fit for that outer fold.
 
-```mermaid
-flowchart TD
-    A[Screened ABIDE I cohort<br/>432 participants · 7 acquisition groups] --> B[Outer split: hold out one acquisition group]
-    B --> C[Remaining groups: training data]
-    B --> D[Held-out group: test data]
-    C --> E[Three grouped inner folds<br/>Fit transformations and select hyperparameters]
-    E --> F[Refit on outer training groups]
-    F --> G[Evaluate once on held-out group]
-    D --> G
-    G --> H[Repeat for all seven groups<br/>Report site means and paired differences]
-```
+![Nested evaluation: hold out one acquisition group, select hyperparameters in grouped inner folds, refit on outer training groups, then evaluate on the untouched group. Repeat for all seven groups.](docs/figures/evaluation-flow.svg)
 
 The cohort uses the ABIDE I PCP C-PAC filtered, no-global-signal-regression, CC200 derivatives. The frozen policy requires complete demographic and motion fields, five manual quality ratings marked OK, mean framewise displacement below 0.2, at least 100 timepoints, and minimum group sizes. Two constant-signal scans were excluded after metadata screening. See the [cohort policy](docs/cohort-policy.md) and [cohort audit](docs/cohort-audit.md).
 

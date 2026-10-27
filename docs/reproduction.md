@@ -85,6 +85,7 @@ Export the public aggregate JSON and PNG/SVG figures in a separate plotting envi
 
 ```bash
 uv run --no-project --python 3.11 --with matplotlib==3.11.2 --with numpy==2.4.6 python scripts/plot_results.py --audit results/audit-final-v4/report.json
+uv run --no-project --python 3.11 --with matplotlib==3.11.2 python scripts/plot_evaluation.py
 ```
 
 The plotting command checks that every model report it exports appears in the passed audit. It writes aggregate scores and model settings to `docs/results/aggregate.json` and figures to `docs/figures/`. The module-stability summary is recorded separately in `docs/results/covariation-stability.json`. It exports no participant rows. Three-seed intervals average seeds within site before site resampling; seed ranges are labelled separately from confidence intervals.
