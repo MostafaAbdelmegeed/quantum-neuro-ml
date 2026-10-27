@@ -1,0 +1,5 @@
+# These public receipts refer to exact file bytes, including line endings.
+docs/results/** -text whitespace=cr-at-eol
+scripts/plot_results.py -text whitespace=cr-at-eol
+scripts/audit_results.py -text whitespace=cr-at-eol
+uv.lock -text whitespace=cr-at-eol

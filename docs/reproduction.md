@@ -88,3 +88,5 @@ uv run --no-project --python 3.11 --with matplotlib==3.11.2 --with numpy==2.4.6 
 ```
 
 The plotting command checks that every model report it exports appears in the passed audit. It writes aggregate scores and model settings to `docs/results/aggregate.json` and figures to `docs/figures/`. The module-stability summary is recorded separately in `docs/results/covariation-stability.json`. It exports no participant rows. Three-seed intervals average seeds within site before site resampling; seed ranges are labelled separately from confidence intervals.
+
+The public aggregate links to its audit and plotting source by SHA-256. `.gitattributes` preserves those files' original bytes so checkout line-ending conversion cannot break the references. `tests/test_public_artifacts.py` checks these links without downloading participant data.
